@@ -1,1 +1,14 @@
-student index view
+
+<ul>
+<% @students.each do |student|  %>
+    <ol>
+    <li> <%= student.name  %></li>
+    
+     <%= link_to 'Edit', edit_student_path(student)  %>
+     <%= link_to 'Delete', student, method: :delete, data: {confirm: 'Are you sure?'}  %>
+     <%= link_to 'Courses', courses_path %>
+    <% end  %>
+  </ol>
+</ul>
+<br>
+<h2><p>Want to create a new student? Click here: <%= link_to 'New', new_student_path  %></h2>

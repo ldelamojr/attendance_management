@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210201903) do
+ActiveRecord::Schema.define(version: 20160211004933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendances", force: :cascade do |t|
-    t.string  "status"
-    t.boolean "danger",    default: false
-    t.string  "message"
-    t.integer "user_id"
-    t.integer "course_id"
+    t.string   "status"
+    t.boolean  "danger",    default: false
+    t.string   "message"
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "date"
   end
 
   add_index "attendances", ["course_id"], name: "index_attendances_on_course_id", using: :btree

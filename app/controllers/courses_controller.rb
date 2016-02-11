@@ -10,6 +10,13 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+
+    #  get a list of all the users in this course
+    @course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
+
+    # get all the students in the course using the id list
+    @students = Student.where( :id => @course_user_ids )
+
   end
 
   # GET /courses/new

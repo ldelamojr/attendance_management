@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211023615) do
+ActiveRecord::Schema.define(version: 20160211023616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendances", force: :cascade do |t|
-    t.string   "status"
+    t.string   "status",    default: "present"
     t.string   "message"
     t.integer  "user_id"
     t.integer  "course_id"

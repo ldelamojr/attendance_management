@@ -25,8 +25,8 @@ class CoursesController < ApplicationController
   # end
 
   # GET /courses/1/edit
-  # def edit
-  # end
+    def edit
+    end
 
   # POST /courses
   # POST /courses.json

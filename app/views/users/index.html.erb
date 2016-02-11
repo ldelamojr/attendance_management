@@ -5,7 +5,10 @@
 <table>
   <thead>
     <tr>
+<<<<<<< HEAD
       
+=======
+>>>>>>> 8550c0a193a749475e3aab54825f1035a515eaed
       <th>Name</th>
       <th>Email</th>
       <th>Password digest</th>
@@ -19,8 +22,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.fname %></td>
-        <td><%= user.lname %></td>
+        <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.password_digest %></td>
         <td><%= user.image %></td>

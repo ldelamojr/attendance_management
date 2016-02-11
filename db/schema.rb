@@ -28,17 +28,17 @@ ActiveRecord::Schema.define(version: 20160211140200) do
   add_index "attendances", ["course_id"], name: "index_attendances_on_course_id", using: :btree
   add_index "attendances", ["user_id"], name: "index_attendances_on_user_id", using: :btree
 
-  create_table "course_users", force: :cascade do |t|
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "courses_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "course_id"
   end
 
-  add_index "course_users", ["course_id"], name: "index_course_users_on_course_id", using: :btree
-  add_index "course_users", ["user_id"], name: "index_course_users_on_user_id", using: :btree
-
-  create_table "courses", force: :cascade do |t|
-    t.string "name"
-  end
+  add_index "courses_users", ["course_id"], name: "index_courses_users_on_course_id", using: :btree
+  add_index "courses_users", ["user_id"], name: "index_courses_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -51,6 +51,6 @@ ActiveRecord::Schema.define(version: 20160211140200) do
 
   add_foreign_key "attendances", "courses"
   add_foreign_key "attendances", "users"
-  add_foreign_key "course_users", "courses"
-  add_foreign_key "course_users", "users"
+  add_foreign_key "courses_users", "courses"
+  add_foreign_key "courses_users", "users"
 end

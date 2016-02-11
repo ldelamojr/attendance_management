@@ -17,7 +17,6 @@ class UsersController < ApplicationController
       render :index
     end
   end
-  end
 
   # GET /users/1
   # GET /users/1.json

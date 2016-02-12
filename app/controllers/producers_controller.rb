@@ -7,10 +7,6 @@ class ProducersController < ApplicationController
 #     @courses = Course.all
 #  end
 
-
-
-
-
  def show
     # get the instructor
     # once we have login working I think this code should be in the 

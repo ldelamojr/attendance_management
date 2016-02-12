@@ -1,14 +1,37 @@
-<h3>Welcome,<%= @student.name %></h3>
 
-<div>
-  <h4><%= course.name</h4>
-</div>
+<p id="notice"><%= notice %></p>
 
-<div>
-  <ul>
-      <li><%= image_tag(@user.avatar_url)  %></li>
-      <li><%= @user.email %></li>
-      <li><%= @user.phone %></li>
-      <li><%= @attendance.status %></li>
-  </ul>
-</div>
+<p>
+  <strong>Name:</strong>
+  <%= @student.name %>
+</p>
+
+
+<p>
+  <strong>Email:</strong>
+  <%= @student.email %>
+</p>
+
+<!-- <p>
+  <strong>Password digest:</strong>
+  <%= @student.password_digest %>
+</p> -->
+
+<p>
+  <strong>Image:</strong>
+  <%= @student.image %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @student.phone %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @student.type %>
+</p>
+
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', students_path %>
+

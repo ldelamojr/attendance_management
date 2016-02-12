@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   resources :courses, only: [:update, :show]
 
   get '/', to: 'users#index'
-  post '/login', to: 'producers#show'
+  post '/login', to: 'users#welcome'
+
 end

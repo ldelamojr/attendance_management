@@ -17,13 +17,13 @@ class UsersController < ApplicationController
       session[:user_name] = user.name 
       @name = session[:user_name]
       if user.type == "Student"
-        render "students#show"
+        render "Students#show"
       elsif user.type == "Instructor"
         render "Instructors#show"
       else user.type == "Producer"
-        render "Producer#show"
+        render "Producers#show"
       end
-          
+      
     else
       @error = true 
       render :index

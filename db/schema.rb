@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20160211191901) do
     t.integer "user_id"
     t.integer "course_id"
     t.boolean "danger"
-    t.date    "date"
   end
 
   add_index "attendances", ["course_id"], name: "index_attendances_on_course_id", using: :btree

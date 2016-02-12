@@ -1,11 +1,9 @@
 <div id = 'loginform'>
 
-<form method = 'POST' action= 'post'>
+<form method = 'POST' action= '/login'>
 
-Email: 
-<input type = 'text' name = 'email'> <br>
-Password: 
-<input type = 'password' name= 'password'><br><br>
+Email: <input type = 'text' name = 'email'> <br>
+Password: <input type = 'password' name= 'password'><br><br>
 <input type = 'hidden' name = 'authenticity_token' value='<%= form_authenticity_token()%>' size = '65'>
 <button type = 'submit'> Log In </button>
 

@@ -32,10 +32,10 @@ User.create [{id: 1, name: "Jason Booras", email: "JasonB@gmail.com", password_d
              {id: 24, name: "Angela Perez", email: "AngelaP@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Student"},
              {id: 25, name: "Nicolai Robles", email: "NicolaiR@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Student"},
              {id: 26, name: "John Bell", email: "JaredM@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
-             {id: 27, name: "Jaden Carver", email: "DanielleN@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
-             {id: 28, name: "Dennis Liaw", email: "AngelaP@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
-             {id: 29, name: "Bryan Mytko", email: "NicolaiR@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
-             {id: 30, name: "Bobby King", email: "NicolaiR@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
+             {id: 27, name: "Jaden Carver", email: "JadenC@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
+             {id: 28, name: "Dennis Liaw", email: "DennisL@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
+             {id: 29, name: "Bryan Mytko", email: "BryanM@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
+             {id: 30, name: "Bobby King", email: "BobbyK@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Instructor"},
              {id: 31, name: "Ethan Barhydt", email: "EthanB@gmail.com", password_digest: "123", phone: "212-123-4567", type: "Producer"}
              ]
 

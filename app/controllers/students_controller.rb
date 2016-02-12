@@ -11,10 +11,12 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+    @student_attendance = Attendance.where(user_id: params[:id], status: [3,1])
+    @lateness_count= Attendance.where(user_id: params[:id], status: [1]).count
+    @unexcused_count = Attendance.where(user_id: params[:id], status: [3]).count
+    @danger_count = (@lateness_count*3) + @unexcused_count  
 
-    @late_students = Attendance.where(user_id: params[:id])
-	
-  end
+ end
 
   def update
    @updateattend = Student.find(params[:id])

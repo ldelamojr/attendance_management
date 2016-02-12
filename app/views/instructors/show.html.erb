@@ -1,35 +1,17 @@
-<p id="notice"><%= notice %></p>
+<h1>Welcome, <%= @instructor.name %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @instructor.name %>
-</p>
+<h2>CURRENT WDI COURSES</h2>
 
-
-<p>
-  <strong>Email:</strong>
-  <%= @instructor.email %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @instructor.password_digest %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @instructor.image %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @instructor.phone %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @instructor.type %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@instructor) %> |
-<%= link_to 'Back', instructors_path %>
+<ul>
+  <% @courses.each_with_index do | course, index | %>
+    <li>
+      <div class="course_name"><a href="/courses/<%= course.id %>" title=""><%= course.name%></a>
+      <span class="attendance_excused">E:<%= @excused_counts[index] %></span>
+      <span>|</span>
+      <span class="attendance_unexcused">U:<%= @unexcused_counts[index] %></span>
+      <span>|</span>
+      <span class="attendance_late">L:<%= @late_counts[index] %></span>
+      </div>
+    </li>
+  <% end %>
+</ul>

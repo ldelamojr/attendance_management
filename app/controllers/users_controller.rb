@@ -3,10 +3,6 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
-class UsersController < ApplicationController
-  def index
-    render :index
-  end
 
   def login
     user = User.find_by(email: params['name'])
@@ -30,7 +26,7 @@ class UsersController < ApplicationController
       render :index
     end
   end
-end
+
 
   
 

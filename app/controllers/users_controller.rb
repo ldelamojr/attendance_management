@@ -10,12 +10,16 @@ class UsersController < ApplicationController
   end
 
  def login
+  # finds user by their email address, then compares password
    user = User.find_by(email: params['email'])
    if user && user.authenticate(params['password'])
-     # session[:user_name] = user.name
+
+    @current_user = session[:current_user] = user
      # @name = user.name
      # cookies[:username] = user.name
      # cookies[:toexpire] = {:value=> 'I EXPIRE IN 15 SECONDS', :expires=>Time.now+15}
+
+     # redirects to different routes based on user type
      if user.type == "Student"
      redirect_to "/students/#{user[:id]}"
      elsif user.type == "Instructor"

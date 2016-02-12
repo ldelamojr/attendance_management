@@ -1,0 +1,17 @@
+<h1>Welcome, <%= @instructor.name %></h1>
+
+<h2>CURRENT WDI COURSES</h2>
+
+<ul>
+  <% @courses.each_with_index do | course, index | %>
+    <li>
+      <div class="course_name"><a href="/courses/<%= course.id %>" title=""><%= course.name%></a>
+      <span class="attendance_excused">E:<%= @excused_counts[index] %></span>
+      <span>|</span>
+      <span class="attendance_unexcused">U:<%= @unexcused_counts[index] %></span>
+      <span>|</span>
+      <span class="attendance_late">L:<%= @late_counts[index] %></span>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -1,1 +1,23 @@
-hi
+<h1>Attendance</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @late_students.each do |late| %>
+      <tr>
+        <td>Status: <%= late.status %></td>
+        <td>When: <%= late.date %></td>
+        <td>In Danger: <%= late.danger %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

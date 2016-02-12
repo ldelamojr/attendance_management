@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
-	has_many :courses, through: :courses_user
+	has_secure_password
+	has_many :courses, through: :course_users
 	has_many :attendance
 end

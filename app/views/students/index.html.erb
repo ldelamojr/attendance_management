@@ -1,14 +1,15 @@
 
-<ul>
-<% @students.each do |student|  %>
-    <ol>
-    <li> <%= student.name  %></li>
-    
-     <%= link_to 'Edit', edit_student_path(student)  %>
-     <%= link_to 'Delete', student, method: :delete, data: {confirm: 'Are you sure?'}  %>
-     <%= link_to 'Courses', courses_path %>
-    <% end  %>
-  </ol>
-</ul>
-<br>
-<h2><p>Want to create a new student? Click here: <%= link_to 'New', new_student_path  %></h2>
+<h3>Welcome,<%= @student.name %></h3>
+
+<div>
+  <h4><%= course.name</h4>
+</div>
+
+<div>
+  <ul>
+      <li><%= image_tag(@user.avatar_url)  %></li>
+      <li><%= @user.email %></li>
+      <li><%= @user.phone %></li>
+      <li><%= @attendance.status %></li>
+  </ul>
+</div>

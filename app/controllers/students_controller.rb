@@ -62,6 +62,54 @@ class StudentsController < ApplicationController
   #     format.json { head :no_content }
   #   end
   # end
+  def index
+    puts params["Body"]
+    puts params["From"]
+    
+    body = params["Body"]
+    from = params["From"]
+
+    # SMSLogger.log_text_message from_number, message_body
+    @user = User.find_by({phone: from_number})
+      arr = body.split(" ")
+      arr.each do |m|
+        if m.start_with?("sick")
+          a = @user.user_id
+          a.attendence = "excused"
+          a.save
+        elsif m.start_with?("late")
+           a = @user.user_id
+           a.attendence = "late"
+           a.save
+        end
+      end
+
+    redirect_to "/"
+  end
+
+  def new
+    @user = User.find(params[:student_id])
+    @absences = Course.find(params[:course_id]).max_absences-1
+  end
+
+  def create
+    account_sid = ENV['TWILIO_ACCT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    client = Twilio::REST::Client.new account_sid, auth_token
+
+    from = "+1208981678"
+
+    client.account.sms.messages.create(
+      :from => "#{from}",
+      :to => params[:phone_num],
+      :body => params[:body]
+    )
+    redirect_to "/courses"
+  end
+
+end
+  # ************************
+  # ************************
 
   private
     # Use callbacks to share common setup or constraints between actions.

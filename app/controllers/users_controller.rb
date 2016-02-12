@@ -17,11 +17,11 @@ class UsersController < ApplicationController
      # cookies[:username] = user.name
      # cookies[:toexpire] = {:value=> 'I EXPIRE IN 15 SECONDS', :expires=>Time.now+15}
      if user.type == "Student"
-     redirect_to "/student/:id"
+     redirect_to "/students/#{user[:id]}"
      elsif user.type == "Instructor"
-      redirect_to "/instructor/:id"
+      redirect_to "/instructors/#{user[:id]}"
      else user.type == "Producer"
-      redirect_to "/producer/31"
+      redirect_to "/producers/#{user[:id]}"
      end
    else
      @error = true

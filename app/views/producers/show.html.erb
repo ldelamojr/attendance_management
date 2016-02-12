@@ -1,6 +1,3 @@
-
-
-
 <h1>Welcome, <%= @producer.name %></h1>
 
 <h2>CURRENT WDI COURSES</h2>
@@ -14,6 +11,11 @@
       <span class="attendance_unexcused">U:<%= @unexcused_counts[index] %></span>
       <span>|</span>
       <span class="attendance_late">L:<%= @late_counts[index] %></span>
+      </div>
+      <div class="danger-students">
+      	<% @danger_student_lists[ index ].each do |dangerStudent | %>
+      	<%= dangerStudent.name %>
+      	<% end %>
       </div>
     </li>
   <% end %>

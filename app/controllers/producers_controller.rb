@@ -26,6 +26,7 @@ class ProducersController < ApplicationController
     @excused_counts = []
     @unexcused_counts = []
     @late_counts = []
+    @danger_student_lists = []
 
     # loop through each course and save its status counts to arrays
     @courses_all.each do |course|
@@ -39,8 +40,12 @@ class ProducersController < ApplicationController
       @excused_counts.push( Attendance.where( :user_id => student_ids, status: 2).count )
       @unexcused_counts.push( Attendance.where( :user_id => student_ids, status: 3).count )
       @late_counts.push( Attendance.where( :user_id => student_ids, status: 1).count )
+      danger_student_ids = Attendance.select('user_id').where( :user_id => student_ids, danger: true)
+      @danger_student_lists.push( Student.where( :id => danger_student_ids ) )
     end
  end
+
+ 
 
  private
     # Use callbacks to share common setup or constraints between actions.

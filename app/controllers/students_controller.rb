@@ -11,8 +11,16 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+
+    @late_students = Attendance.where(user_id: params[:id])
 	
   end
+
+  def update
+   @updateattend = Student.find(params[:id])
+   @Student.update(student_params)
+   redirect_to "/instructor"
+ end
 
   # GET /students/new
   # def new

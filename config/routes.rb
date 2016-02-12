@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :users, only: :index
+  resources :users, only: [:index, :post, :new]
 
   resources :producers, only: :show do
     resources :instructors, only: :show
@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   resources :courses, only: [:update, :show]
 
   get '/', to: 'users#index'
-  post '/login', to: 'instructors#show'
+  post '/login', to: 'users#login'
+
 end

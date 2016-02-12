@@ -16,7 +16,15 @@ class UsersController < ApplicationController
       # if user exists and password is legit then...
       session[:user_name] = user.name 
       @name = session[:user_name]
-      render :welcome
+
+      if user.type == "Student"
+        redirect "Students#show"
+      elsif user.type =="Instructor"
+        render "Instructors#show"
+      else user.type == "Producer"
+        render "Producers#show"
+      end
+        
     else
       @error = true 
       render :index

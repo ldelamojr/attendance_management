@@ -18,7 +18,7 @@
     <% @student_attendance.each do |a| %>
       <tr>
         <td>When: <%= a.date %></td> 
-        <td>Status: <%= a[:status] %></td>  
+        <td>Status: <%= a.status %></td>  
          
       </tr>
     <% end %>

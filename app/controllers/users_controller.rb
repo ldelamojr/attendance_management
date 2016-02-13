@@ -23,23 +23,16 @@ class UsersController < ApplicationController
      if user.type == "Student"
      redirect_to "/students/#{user[:id]}"
      elsif user.type == "Instructor"
-      redirect_to "/instructors/#{user[:id]}"
+      redirect_to "/courses"
      else user.type == "Producer"
-      redirect_to "/producers/#{user[:id]}"
+      redirect_to "/courses"
      end
    else
      @error = true
      render :index
    end
  end
-
-
-
-
-
-
   
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -50,7 +43,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
     end
-  end
+end
 
 
 

@@ -7,7 +7,57 @@ class CoursesController < ApplicationController
   #   @courses = Course.all
   # end
 
+  def index
+
+    # dont let students view this
+    @current_user = User.find( session['current_user']['id'] )
+
+    if ( @current_user.type == 'Student')
+      redirect_to '/students/' + @current_user['id'].to_s
+    end
+
+    @current_user = User.find( session[:current_user]['id'] )
+    # get the id's of all the courses this instructor belongs too
+
+    if @current_user.type == 'Producer'
+      course_ids = CourseUser.select('course_id')
+    else
+      course_ids = CourseUser.select('course_id').where( user_id: @current_user.id )
+    end
+    # use the ids to select the courses
+    @courses = Course.where( :id => course_ids )
+
+    # arrays to hold the counts for each courses statuss
+    @excused_counts = []
+    @unexcused_counts = []
+    @late_counts = []
+    @danger_student_lists = []
+
+    # loop through each course and save its status counts to arrays
+    @courses.each do |course|
+
+      # get the ids of all the students in the course
+      student_ids = CourseUser.select('user_id').where( course_id: course.id )
+      # use the ids to get the actual students info
+      students = Student.where( :id => student_ids )
+
+      # save the counts of each courses total lates/excuseds/unexcuseds
+      @excused_counts.push( Attendance.where( :user_id => student_ids, status: 2).count )
+      @unexcused_counts.push( Attendance.where( :user_id => student_ids, status: 3).count )
+      @late_counts.push( Attendance.where( :user_id => student_ids, status: 1).count )
+      danger_student_ids = Attendance.select('user_id').where( :user_id => student_ids, danger: true)
+      @danger_student_lists.push( Student.where( :id => danger_student_ids ) )
+    end
+  end
+
   def overview
+
+    # dont let students view this
+    @current_user = User.find( session['current_user']['id'] )
+
+    if ( @current_user.type == 'Student')
+      redirect_to '/students/' + @current_user['id'].to_s
+    end
     
     @course = Course.find(params['id'])
     #  get a list of all the users in this course
@@ -21,6 +71,13 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    
+    # dont let students view this
+    @current_user = User.find( session['current_user']['id'] )
+
+    if ( @current_user.type == 'Student')
+      redirect_to '/students/' + @current_user['id'].to_s
+    end
 
     if ( params['date_offset'] ) 
       
@@ -76,4 +133,17 @@ class CoursesController < ApplicationController
 
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_course
+      @course = Course.find_by(id: params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
+    end
 end
+
+  

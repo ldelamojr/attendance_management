@@ -8,6 +8,8 @@ class CoursesController < ApplicationController
   # end
 
   def overview
+    
+    @course = Course.find(params['id'])
     #  get a list of all the users in this course
     course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
 

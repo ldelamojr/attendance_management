@@ -2,7 +2,7 @@
 
 <div class="subheader">
   <h2><%= @course.name %></h2>
-  <button>OVERVIEW</button>
+  <a href="/courses/<%= @course.id %>/overview">OVERVIEW</a>
   <button>BACK</button>
 </div>
 
@@ -29,7 +29,7 @@
       <% @students.each do | student | %>
         <tr>
         <% # puts( student.attendance.status )%>
-          <td><%= student.name %></td>
+          <td><a href="/students/<%= student.id%>" title=""><%= student.name %></a></td>
           <td>
             <select name="status">
               <!-- < % = if ( student.attendance.status == "present" ) then print("selected") end % >-->

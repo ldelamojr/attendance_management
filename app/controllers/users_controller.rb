@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       end
     else
       # show user an error when login fails
-      @error = "Incorrect email or passowrd please try again."
+      @error = "Incorrect email or passowrd. Please try again."
       render :index
     end
   end

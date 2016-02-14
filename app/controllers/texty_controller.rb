@@ -10,12 +10,11 @@ class TextyController <ApplicationController
     @user = User.find_by({phone: from_number})
 	    message_array = message_body.split(" ")
 	    message_array.each do |m|
-	    	if m.start_with?("sick")
-	    		a = @user.attendence.status = "excused"
-	    		a.save
-	    	elsif m.start_with?("late")
-	    		 a = @user.attendence.status = "late"
-	    		 a.save
+	    	if m.start_with?("sick") 
+	    		flash[:notice] = "sick"
+	    
+	    	elsif m.start_with?("late") 
+	    		 flash[:notice] = "late"
 	    	end
 	    end
 

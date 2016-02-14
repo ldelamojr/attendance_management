@@ -1,4 +1,4 @@
-class TextsController <ApplicationController
+class TextyController <ApplicationController
 	def index
 
     puts params["Body"]

@@ -118,6 +118,18 @@ class CoursesController < ApplicationController
       redirect_to '/students/' + @current_user['id'].to_s
     end
 
+    # if it's an instructor only allow them to see their own classes
+    if @current_user.type == 'Instructor'
+      # get a list of ids for all the instructors courses
+      instructors_courses = CourseUser.where( user_id: @current_user.id ).pluck('course_id').to_a
+      # if the course we are trying to view is not in that list
+      if not params[:id].to_i.in? instructors_courses
+        # send them back to the course index page
+        redirect_to '/courses'
+      end
+    end
+
+
     # see if there is a date offset like: "?date_offset=5"
     if ( params['date_offset'] ) 
       

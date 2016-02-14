@@ -1,47 +1,50 @@
+require 'pry'
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :post, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
-class UsersController < ApplicationController
   def index
-    render :index
+   render :index
   end
 
-  def login
-    user = User.find_by(email: params['name'])
-    # checks the db for a user that matches the name submitted.
+ def login
+  # finds user by their email address, then compares password
+   user = User.find_by(email: params['email'])
+   if user && user.authenticate(params['password'])
 
-    if user && user.authenticate(params['password'])
-      # if user exists and password is legit then...
-      session[:user_name] = user.name 
-      @name = session[:user_name]
+    @current_user = session[:current_user] = user
+     # @name = user.name
+     # cookies[:username] = user.name
+     # cookies[:toexpire] = {:value=> 'I EXPIRE IN 15 SECONDS', :expires=>Time.now+15}
 
-      if user.type == "Student"
-        redirect "Students#show"
-      elsif user.type =="Instructor"
-        render "Instructors#show"
-      else user.type == "Producer"
-        render "Producers#show"
-      end
-        
-    else
-      @error = true 
-      render :index
-    end
-  end
-end
-
+     # redirects to different routes based on user type
+     if user.type == "Student"
+     redirect_to "/students/#{user[:id]}"
+     elsif user.type == "Instructor"
+      redirect_to "/courses"
+     else user.type == "Producer"
+      redirect_to "/courses"
+     end
+   else
+     @error = true
+     render :index
+   end
+ end
   
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by(email: params['email'])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password_digest, :image, :phone, :type)
+      params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
     end
 end
+
+
+
+

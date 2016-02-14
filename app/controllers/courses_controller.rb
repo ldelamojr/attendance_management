@@ -7,75 +7,143 @@ class CoursesController < ApplicationController
   #   @courses = Course.all
   # end
 
+  def index
+
+    # dont let students view this
+    @current_user = User.find( session['current_user']['id'] )
+
+    if ( @current_user.type == 'Student')
+      redirect_to '/students/' + @current_user['id'].to_s
+    end
+
+    @current_user = User.find( session[:current_user]['id'] )
+    # get the id's of all the courses this instructor belongs too
+
+    if @current_user.type == 'Producer'
+      course_ids = CourseUser.select('course_id')
+    else
+      course_ids = CourseUser.select('course_id').where( user_id: @current_user.id )
+    end
+    # use the ids to select the courses
+    @courses = Course.where( :id => course_ids )
+
+    # arrays to hold the counts for each courses statuss
+    @excused_counts = []
+    @unexcused_counts = []
+    @late_counts = []
+    @danger_student_lists = []
+
+    # loop through each course and save its status counts to arrays
+    @courses.each do |course|
+
+      # get the ids of all the students in the course
+      student_ids = CourseUser.select('user_id').where( course_id: course.id )
+      # use the ids to get the actual students info
+      students = Student.where( :id => student_ids )
+
+      # save the counts of each courses total lates/excuseds/unexcuseds
+      @excused_counts.push( Attendance.where( :user_id => student_ids, status: 2).count )
+      @unexcused_counts.push( Attendance.where( :user_id => student_ids, status: 3).count )
+      @late_counts.push( Attendance.where( :user_id => student_ids, status: 1).count )
+      danger_student_ids = Attendance.select('user_id').where( :user_id => student_ids, danger: true)
+      @danger_student_lists.push( Student.where( :id => danger_student_ids ) )
+    end
+  end
+
+  def overview
+
+    # dont let students view this
+    @current_user = User.find( session['current_user']['id'] )
+
+    if ( @current_user.type == 'Student')
+      redirect_to '/students/' + @current_user['id'].to_s
+    end
+    
+    @course = Course.find(params['id'])
+    #  get a list of all the users in this course
+    course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
+
+    # get all the attendance for this course
+    @lateStudents = Student.joins(:attendance).select('users.*, attendances.*').where( :id => course_user_ids ).references(:attendance)
+    render :overview
+  end
+  
   # GET /courses/1
   # GET /courses/1.json
   def show
+    
+    # dont let students view this
+    @current_user = User.find( session['current_user']['id'] )
+
+    if ( @current_user.type == 'Student')
+      redirect_to '/students/' + @current_user['id'].to_s
+    end
+
+    if ( params['date_offset'] ) 
+      
+      # this is the value in the url like ?date_offset=1
+      offset = Integer(params['date_offset'])
+      # todays date plus the offset (which can be negative)
+      date = Time.now + offset.day
+
+      # buttons are current offset +/- 1
+      @nextButtonVal = Integer(params['date_offset']) + 1
+      @prevButtonVal = Integer(params['date_offset']) - 1
+
+    else
+      
+      # just get todays date
+      date = Time.now
+      # buttons go back and forward 1 day
+      @nextButtonVal = "1"
+      @prevButtonVal = "-1"
+
+    end
+
+    # convert to text
+    @date = date.strftime("%m/%d/%Y") 
+
 
     #  get a list of all the users in this course
-    @course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
+    course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
 
-    # get all the students in the course using the id list
-    @students = Student.where( :id => @course_user_ids )
+    # get all the late/excused/unexcused/present students in the course using the id list
+    lateStudents = Student.includes(:attendance).where( attendances: { date: date }, :id => course_user_ids ).references(:attendance)
 
-  end
+    # if there are any students in the attendance table for this day make a list of just their ids
+    if lateStudents.length > 0
 
-  # GET /courses/new
-  # def new
-  #   @course = Course.new
-  # end
+      # make an array to hold the ids
+      lateStudentIds = []
 
-  # GET /courses/1/edit
-    def edit
-    end
-
-  # POST /courses
-  # POST /courses.json
-  # def create
-  #   @course = Course.new(course_params)
-
-  #   respond_to do |format|
-  #     if @course.save
-  #       format.html { redirect_to @course, notice: 'Course was successfully created.' }
-  #       format.json { render :show, status: :created, location: @course }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @course.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
-  # PATCH/PUT /courses/1
-  # PATCH/PUT /courses/1.json
-  def update
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-        format.json { render :show, status: :ok, location: @course }
-      else
-        format.html { render :edit }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+      # add the ids one at a time
+      lateStudents.each do | lateStudent |
+        lateStudentIds.push(lateStudent.id)
       end
+
+      # get all of the other students NOT in the lateStudentIds array
+      otherStudents = Student.where(:id => course_user_ids).where("id NOT IN (?)", lateStudentIds)
+
+      # combine the 2 lists, late students at the top
+      @students = lateStudents.push(*otherStudents)
+
+    else
+      # no late students so just get all the students in that course
+      @students = Student.where(:id => course_user_ids )
+
     end
   end
-
-  # DELETE /courses/1
-  # DELETE /courses/1.json
-  # def destroy
-  #   @course.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
-      @course = Course.find(params[:id])
+      @course = Course.find_by(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def course_params
-      params.require(:course).permit(:name)
+    def user_params
+      params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
     end
 end
+
+  

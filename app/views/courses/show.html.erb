@@ -1,23 +1,49 @@
-<p id="notice"><%= notice %></p>
+<h1></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
+<div class="subheader">
+  <h2><%= @course.name %></h2>
+  <a href="/courses/<%= @course.id %>/overview">OVERVIEW</a>
+  <button>BACK</button>
+</div>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<div class="datenav">
+  <form action="/courses/<%= @course.id %>">
+  <input type="hidden" name="date_offset" value="<%= @prevButtonVal %>">
+  <input type="submit" value="PREVIOUS">
+  </form>
+  <span class="date"><%= @date %></span>
+  <form action="/courses/<%= @course.id %>">
+  <input type="hidden" name="date_offset" value="<%= @nextButtonVal %>">
+  <input type="submit" value="NEXT">
+  </form>
+</div>
 
 
-<table>
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.name %></td>
-        <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_course_path(student) %></td>
-        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<form action="/attendances/edit"></form>
+  <table>
+    <thead>
+      <td>NAME</td>
+      <td>STATUS</td>
+    </thead>
+    <tbody>
+      <% @students.each do | student | %>
+        <tr>
+        <% # puts( student.attendance.status )%>
+          <td><a href="/students/<%= student.id%>" title=""><%= student.name %></a></td>
+          <td>
+            <select name="status">
+              <!-- < % = if ( student.attendance.status == "present" ) then print("selected") end % >-->
+              <option value="present">PRESENT</option>
+              <option value="late">LATE</option>
+              <option value="excused">EXCUSED</option>
+              <option value="unexcused">UNEXCUSED</option>
+            </select>
+
+          </td>
+        <tr>
+      <% end %>
+    </tbody>
+  </table>
+  <input type="submit" value="SUBMIT ATTENDANCE" >
+</form>
+

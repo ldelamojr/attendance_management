@@ -134,6 +134,29 @@ class CoursesController < ApplicationController
     end
   end
 
+  def contact
+binding.pry
+    account_sid = ""
+    auth_token = ""
+    client = Twilio::REST::Client.new account_sid, auth_token
+     
+    from = "+14155992671"  # "+17868027784"   #  # Your Twilio number +13473531559
+     
+    friends = {
+    # "+12018981678" => "Ismail jaafar",  #12018981678
+    "+17868599939" => params["name"]
+    # "+1"+params["phone"].gsub("-","") => params["name"]
+    
+    }
+    friends.each do |key, value|
+      client.account.messages.create(
+        :from => from,
+        :to => key,
+        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Can you please email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
+      )
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course

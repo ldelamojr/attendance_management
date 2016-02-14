@@ -16,7 +16,9 @@
       <div class="danger-students">
         <% @danger_student_lists[ index ].each do |dangerStudent | %>
         <%= dangerStudent.name %>
-        <button>CONTACT</button>
+
+          <%= button_to 'Contact '+ dangerStudent.name, {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post  %>
+         
         <% end %>
       </div>
       <% end %>

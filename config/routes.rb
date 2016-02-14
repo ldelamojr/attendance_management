@@ -13,6 +13,6 @@ Rails.application.routes.draw do
 
   get '/', to: 'users#index'
   post '/login', to: 'users#login'
-
+  post '/contact', to: 'courses#contact'
 
 end

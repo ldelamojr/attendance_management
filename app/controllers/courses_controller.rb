@@ -129,7 +129,6 @@ class CoursesController < ApplicationController
       end
     end
 
-
     # see if there is a date offset like: "?date_offset=5"
     if ( params['date_offset'] ) 
       

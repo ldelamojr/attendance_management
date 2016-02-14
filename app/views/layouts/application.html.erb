@@ -8,7 +8,20 @@
 </head>
 <body>
 
+<!-- show greeting and logout button if user is logged in -->
+<!-- look in the session to see if there is a 'current_user' -->
+<% if session['current_user'] %>
+	<div>
+		<!-- get the user name from the current_user in the session -->
+		<h1>Welcome, <%= session['current_user']['name'] %></h1>
+		<form action="/logout" method="POST">
+			<input type="submit" value="LOG OUT">
+		</form>
+	</div>
+<% end %>
+
 <%= yield %>
+
 
 </body>
 </html>

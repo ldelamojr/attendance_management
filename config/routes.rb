@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :students, only: :show
 
-  resources :courses, only: [:index, :update, :show] do
+  resources :courses, only: [:index, :update, :show, :new, :create] do
     member do
       get 'overview'
     end

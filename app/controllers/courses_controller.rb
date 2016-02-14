@@ -134,6 +134,23 @@ class CoursesController < ApplicationController
     end
   end
 
+
+  def new 
+    # creates new data in attendance column 
+    @attendance = Attendance.new
+  end
+
+
+  def create
+    @attendance = Attendance.new(params.require(:attendance).permit(:user_id, :date, :status))
+    if @attendance.save
+      render :show
+    else
+      render :show
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course

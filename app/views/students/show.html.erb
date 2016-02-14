@@ -1,5 +1,5 @@
 <h2>Welcome <%= @student.name %> </h2>
-
+<%= image_tag(avatar_url(@student), size: "48") %>  <!-- gravatar -->
 <% if @danger_count >= 3 %>
 <button id "producer contact"> Please Contact Producer</button>
 <%end %>
@@ -17,9 +17,9 @@
 
     <% @student_attendance.each do |a| %>
       <tr>
-        <td>When: <%= a.date %></td> 
-        <td>Status: <%= a.status %></td>  
-         
+        <td>When: <%= a.date %></td>
+        <td>Status: <%= a.status %></td>
+
       </tr>
     <% end %>
   </tbody>

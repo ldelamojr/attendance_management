@@ -29,7 +29,9 @@
       <% @students.each do | student | %>
         <tr>
         <% # puts( student.attendance.status )%>
-          <td><a href="/students/<%= student.id%>" title=""><%= student.name %></a></td>
+          <td>
+            <%= image_tag(avatar_url(student), size: "48") %> <!-- Gravatar -->
+            <a href="/students/<%= student.id%>" title=""><%= student.name %></a></td>
           <td>
             <select name="status">
               <!-- < % = if ( student.attendance.status == "present" ) then print("selected") end % >-->

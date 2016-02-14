@@ -1,5 +1,9 @@
 <div id = 'loginform'>
 
+<% if @error %>
+<h1>INVALID LOGIN</h1>
+<% end %>
+
 <form method = 'POST' action= '/login'>
 
 Email: <input type = 'text' name = 'email'> <br>

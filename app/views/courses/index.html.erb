@@ -1,0 +1,31 @@
+<h1>Welcome, <%= session[:current_user]['name'] %></h1>
+<%= image_tag(avatar_url(@current_user), size: "48") %> <!-- Gravatar -->
+<h2>CURRENT WDI COURSES</h2>
+
+<ul>
+  <!--  loop through all the users courses -->
+  <!-- we use each_with_index so we can reference the arrays of values correctly -->
+  <% @courses.each_with_index do | course, index | %>
+    <li>
+      <div class="course_name">
+        <a href="/courses/<%= course.id %>" title=""><%= course.name%></a>
+        <span class="attendance_excused">E:<%= @excused_counts[index] %></span>
+        <span>|</span>
+        <span class="attendance_unexcused">U:<%= @unexcused_counts[index] %></span>
+        <span>|</span>
+        <span class="attendance_late">L:<%= @late_counts[index] %></span>
+      </div>
+      <% if @current_user['type'] == 'Producer' %>
+      <div class="danger-students">
+        <% @danger_student_lists[ index ].each do |dangerStudent | %>
+        <%= image_tag(avatar_url(dangerStudent), size: "48") %> <!-- Gravatar -->
+        <%= dangerStudent.name %>
+
+          <%= button_to 'Contact '+ dangerStudent.name, {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post  %>
+         
+        <% end %>
+      </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

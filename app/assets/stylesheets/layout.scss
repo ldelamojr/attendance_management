@@ -1,0 +1,294 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+html{
+	height: 100%;
+}
+body {
+  line-height: 1;
+  min-height: 100%;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Clearfix */
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Domine:700,400);
+/* font-family: 'Domine', serif; */
+@import url(https://fonts.googleapis.com/css?family=Fjalla+One);
+/* font-family: 'Fjalla One', sans-serif; */
+
+
+/**
+COLOR VARIABLES
+**/
+$ButtonRed: #FA4542;
+$ButtonRedHover: #F6201D;
+$ButtonRedShadow: #BE0201;
+$BGGray: #ececec;
+$Black: #000;
+$White: #fff;
+$Greeting: #222;
+
+/**
+SIZE VARIABLE
+**/
+$footerHeight: 35px;
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+	font-family: 'Fjalla One', sans-serif;
+  text-align: left;
+  color: $Black;
+  background: $BGGray;
+  position: relative;
+  padding-bottom: $footerHeight + 20px;
+}
+
+.header {
+  padding: 0 30px 0 25px;
+  height: 65px;
+  position: relative;
+  background-color: $Black;
+}
+
+.logo {
+	margin: 15px 0;
+  height: 34px;
+  width: 554px;
+  display: block;
+  float: left;
+}
+
+.greeting {
+	background-color: $White;
+	text-align: center;
+	padding: 20px 0;
+	span {
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
+	}
+}
+
+.courseDivider {
+	padding: 30px 0;
+	p {
+		margin: 0 40px 0 40px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid $Black;
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
+	}
+}
+
+.error {
+	width: 100%;
+	text-align: center;
+	padding-top: 40px;
+	position: absolute;
+}
+
+.login {
+	text-align: center;
+	background-color: $White;
+	width: 100%;
+	max-width: 640px;
+	padding: 35px 0 66px 0;
+	margin: 65px auto 20px auto;
+	label {
+		display: block;
+	}
+	p {
+		display: block;
+		font-family: 'Domine', serif;
+		font-size: 15px;
+		line-height: 20px;
+		&.main {
+			font-size: 24px;
+			line-height: 65px;
+		}
+	}	
+}
+
+form {
+	button,
+	label {
+  	padding: 30px 0 5px 0;
+		font-size: 20px;
+		text-transform: capitalize;
+	}
+	input {
+		width: 100%;
+		height: 30px;
+		max-width: 412px;
+		border-radius: 0;
+		font-family: 'Domine', serif;
+	}
+	&.loginForm {
+		button[type="submit"] {
+			padding: 8px 185px;
+		}
+	}
+	&.logoutForm {
+		height: 100%;
+		input[type="submit"] {
+			border: none;
+			background-color: $Black;
+			color: $White;
+			float: right;
+			padding: 8px 16px;
+			font-family: 'Domine', serif;
+			font-weight: 700;
+			font-size: 15px;
+			height: 100%;
+			width: auto;
+			&:hover {
+				background-color: $White;
+				color: $ButtonRed;			
+			}
+		}
+	}
+}
+
+button.push {
+	font-size: 20px;
+  padding: 10px 16px 6px;
+  margin-top: 20px;
+  width: 100%;
+	max-width: 412px;
+	border: none;
+	background-color: $ButtonRed;
+	box-shadow: 0 3px 0 0 $ButtonRedShadow;
+	border-radius: 3px;
+	color: $White;
+		&:hover {
+			background-color: $ButtonRedHover;
+		}
+}
+
+.studentOverview {
+  text-align: center;
+  background-color: $White;
+  width: 100%;
+  max-width: 640px;
+  padding: 57px 0 66px 0;
+  margin: 15px auto;
+  button {
+  	margin-bottom: 5px;
+  }
+  p {
+  	margin: 5px 0 15px 0;
+  	font-family: 'Domine', serif;
+		font-size: 20px;
+		text-align: center;
+  }
+  .status-list {
+  	width: 100%;
+		max-width: 412px;
+		margin: 0 auto;
+  	.status-list-header,
+  	.status-list-item {
+  		overflow: hidden;
+  		div {
+  			width: 50%;
+  			float: left;
+  			text-align: center;
+  		}
+  		&:nth-child(even) {
+  			background-color: $BGGray;
+  		}
+  	}
+  .status-list-header {
+		border: 1px solid $Black;
+		padding: 15px;
+	}
+	.status-list-item {
+		padding: 5px 0;
+	}
+  }
+  .status-list-body {
+  	font-family: 'Domine', serif;
+  	font-size: 15px;
+  	border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+  }
+}
+
+.gravatar {
+	border-radius: 50%;
+}
+
+footer {
+	line-height: $footerHeight;
+  height: $footerHeight;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: $Black;
+  	p {
+  		color: $White;
+  		display: block;
+			font-family: 'Domine', serif;
+			font-size: 13px;
+			text-align: center;
+  	}	
+}
+
+
+

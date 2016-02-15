@@ -7,8 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class="header clearfix">
+     <a href="/" class="logo">
+     	<img src="/assets/ga_am_logo.svg" alt="">
+     </a>
+	<!-- show greeting and logout button if user is logged in -->
+	<!-- look in the session to see if there is a 'current_user' -->
+	<% if session['current_user'] %>
+		<!-- get the user name from the current_user in the session -->
+		<form action="/logout" method="POST" class="logoutForm">
+			<input  type="submit" value="Log Out">
+		</form>
+	<% end %>
+</div>
+<% if session['current_user'] %>
+	<div class="greeting">
+		<!-- get the user name from the current_user in the session -->
+		<span>Welcome, <%= session['current_user']['name'] %></span>
+	</div>
+<% end %>
 <%= yield %>
+<footer class="footer">
+<p>&copy;Attendance Management 2016.</p>
+</footer>
 
 </body>
 </html>

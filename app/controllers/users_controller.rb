@@ -6,32 +6,43 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-   render :index
+    render :index
   end
 
- def login
-  # finds user by their email address, then compares password
-   user = User.find_by(email: params['email'])
-   if user && user.authenticate(params['password'])
+  def login
+    # finds user by their email address, then compares password
+    user = User.find_by(email: params['email'])
+    # if there is a user with that email see if it's password matches
+    if user && user.authenticate(params['password'])
 
-    @current_user = session[:current_user] = user
-     # @name = user.name
-     # cookies[:username] = user.name
-     # cookies[:toexpire] = {:value=> 'I EXPIRE IN 15 SECONDS', :expires=>Time.now+15}
+      # Make a current suer variable to use in the template 
+      @current_user = user
+      
+      # and make a session with the user info to use throughout the app
+      session[:current_user] = user
 
-     # redirects to different routes based on user type
-     if user.type == "Student"
-     redirect_to "/students/#{user[:id]}"
-     elsif user.type == "Instructor"
-      redirect_to "/courses"
-     else user.type == "Producer"
-      redirect_to "/courses"
-     end
-   else
-     @error = true
-     render :index
-   end
- end
+      # redirects to different routes based on user type
+      if user.type == "Student"
+        redirect_to "/students/#{user[:id]}"
+      elsif user.type == "Instructor"
+        redirect_to "/courses"
+      else user.type == "Producer"
+        redirect_to "/courses"
+      end
+    else
+      # show user an error when login fails
+      @error = "Incorrect email or passowrd. Please try again."
+      render :index
+    end
+  end
+
+  def logout
+    # remove everything from the session
+    # .clear is a method to remove everything from a session
+    session.clear
+    # send user back to login screen
+    redirect_to "/"
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.

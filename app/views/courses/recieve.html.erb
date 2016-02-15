@@ -1,0 +1,9 @@
+<h1>Send Text Form</h1>
+
+<%=form_tag("/students/#{params[:student_id]}/texts", method: "post") do %>
+	<%= label_tag "Phone Number"%>
+	<%=text_field_tag :phone_num , @user.phone%>
+	<%=label_tag "Message"%>
+	<%=text_area_tag :body, @user.first_name + ", you have accrued a total of " +@absences.to_s+ " absences please contact your producer as soon as possible"%>
+	<%=submit_tag "Send Text"%>
+<%end%>

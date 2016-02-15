@@ -1,11 +1,12 @@
 
 Rails.application.routes.draw do
 
-  resources :users, only: [:index, :post, :new]
+  resources :users, only: [:index, :post, :new, :logout]
 
   resources :students, only: :show
 
   resources :courses, only: [:index, :update, :show] do
+  	# found this online makes courses/:id/overview route work
     member do
       get 'overview'
     end
@@ -13,11 +14,13 @@ Rails.application.routes.draw do
 
   get '/', to: 'users#index'
   post '/login', to: 'users#login'
-<<<<<<< HEAD
+
   post '/texty', to: 'texty#index'
 
-=======
+
   post '/contact', to: 'courses#contact'
->>>>>>> b9abf49749561eb4fcb1c8a53e1474f343378615
+  post '/recieve', to: 'courses#recieve'
+  post '/logout', to: 'users#logout'	
+
 
 end

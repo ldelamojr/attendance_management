@@ -1,12 +1,19 @@
-<div id = 'loginform'>
+<% if @error %>
+	<div class="error"><%= @error %></div>
+<% end %>
 
-<form method = 'POST' action= '/login'>
+<div class='login'>
+<p class="main">Welcome to Attendance Management.</p>
+<p>Please login to view your account.</p>
+<p>Remember that your email and password are case-sensitive.</p>
 
-Email: <input type = 'text' name = 'email'> <br>
-Password: <input type = 'password' name= 'password'><br><br>
-<input type = 'hidden' name = 'authenticity_token' value='<%= form_authenticity_token()%>' size = '65'>
-<button type = 'submit'> Log In </button>
-
+<form method='POST' action='/login' class="loginForm">
+	<label>EMAIL</label>
+	<input type = 'text' name = 'email'> <br>
+	<label>PASSWORD</label>
+	<input type = 'password' name= 'password'><br><br>
+	<input type = 'hidden' name = 'authenticity_token' value='<%= form_authenticity_token()%>' size = '65'>
+	<button type = 'submit'> Login </button>
 </form>
 
 </div>

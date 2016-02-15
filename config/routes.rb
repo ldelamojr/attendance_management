@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get '/', to: 'users#index'
   post '/login', to: 'users#login'
   post '/contact', to: 'courses#contact'
+  get '/receive_sms', to: 'courses#receive_sms'
 
 end

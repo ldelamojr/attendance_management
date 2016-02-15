@@ -132,12 +132,27 @@ class CoursesController < ApplicationController
       @students = Student.where(:id => course_user_ids )
 
     end
+
+    def receive_sms
+      content_type 'text/xml'
+
+      response = Twilio::TwiML::Response.new do |r|
+        r.Message "Thank you, your message has been posted to today's roll sheet."
+      end
+
+      response.to_xml
+    end
+
   end
+
 
   def contact
 binding.pry
-    account_sid = ""
-    auth_token = ""
+    account_sid = "AC00822a76118217c7fe71b91ebb891298"
+    auth_token = "c95ad825e174c475ab8fc966ebdda9dc"
+
+    # account_sid = ""
+    # auth_token = ""
     client = Twilio::REST::Client.new account_sid, auth_token
      
     from = "+14155992671"  # "+17868027784"   #  # Your Twilio number +13473531559

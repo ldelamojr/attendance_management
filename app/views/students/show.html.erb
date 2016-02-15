@@ -1,28 +1,29 @@
-<h2>Student: <%= @student.name %> </h2>
-<%= image_tag(avatar_url(@student), size: "48") %>  <!-- gravatar -->
-<!-- if the student has a danger count of 3 or me tell them to contact -->
-<% if @danger_count >= 3 %>
-  <button id "producer contact"> Please Contact Producer</button>
-<% end %>
+<div class="courseDivider"><p> <%= @course.name %> </p></div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="2">Attendance Records</th>
-    </tr>
-  </thead>
+<div class="studentOverview">
+  
+  
+  <%= image_tag(avatar_url(@student), size: "78", class:"gravatar") %>  <!-- gravatar -->
+  <p><%= @student.name %></p>
 
-
-  <tbody>
-
-    <% @student_attendance.each do |a| %>
-      <tr>
-        <td>When: <%= a.date %></td> 
-        <td>Status: <%= a.status %></td>  
-      </tr>
-    <% end %>
-
-  </tbody>
-</table>
-
-<br>
+  <!-- if the student has a danger count of 3 or me tell them to contact -->
+  <div class="status-list">
+    <div class="status-list-header">
+      <div>DATE</div>
+      <div>STATUS</div>
+    </div>
+    <div class="status-list-body">
+      <% @student_attendance.each do |a| %>
+        <div class="status-list-item">
+          <div><%= a.date.strftime("%m / %d / %y") %></div>
+          <div><%= a.status %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+    <% if @danger_count >= 3 %>
+    <div class"contactButton">
+      <button class="push"> Please Contact Producer</button>
+    </div>
+  <% end %>
+</div>

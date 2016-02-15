@@ -1,33 +1,58 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
+  def receive_sms
+    content_type 'text/xml'
+
+    response = Twilio::TwiML::Response.new do |r|
+      r.Message "Thank you, your message has been posted to today's roll sheet."
+    end
+
+    response.to_xml
+  end
+  
   # GET /courses
   # GET /courses.json
-  # def index
-  #   @courses = Course.all
-  # end
-
   def index
 
-    # dont let students view this
-    @current_user = User.find( session['current_user']['id'] )
+    # if some one is logged in
+    if session[:current_user]
+      # set them as current user
+      # have to get the logged in user since the session doesnt have the type
+      # not sure why session doesnt have the type in it
+      # so we use the id from the session to get the user info from the User table
+      @current_user = User.find( session[:current_user]['id'] )
+    else
+      # if no one is logged in send to home/login page
+      redirect_to "/" and return
+    end
 
+    # check if the type of user is Student
     if ( @current_user.type == 'Student')
+      # if so send them to their own page since that is the only view they are allowed to see
+      # .to_s becuase the user id is an integer in the database
       redirect_to '/students/' + @current_user['id'].to_s
     end
 
-    @current_user = User.find( session[:current_user]['id'] )
-    # get the id's of all the courses this instructor belongs too
 
+    # get the id's of all the courses this instructor/producer belongs too
+    # if its a producer
     if @current_user.type == 'Producer'
-      course_ids = CourseUser.select('course_id')
+      # get all the courses
+      @courses = Course.all
     else
+      # if its an instructor 
+      # only get the courses they are associated with
+      # use the course user table to get a list of id's of the courses that belong to the logged in instructor
       course_ids = CourseUser.select('course_id').where( user_id: @current_user.id )
+      # use that list of ids to get the courses
+      # "=>" is how we see if that variable is "in" a list/array/object
+      @courses = Course.where( :id => course_ids )
     end
-    # use the ids to select the courses
-    @courses = Course.where( :id => course_ids )
 
-    # arrays to hold the counts for each courses statuss
+    # arrays to hold the counts for each courses status
+    # tried to add these values to the courses like "course.excused = "
+    # but that doesn't work like it does in javascript
     @excused_counts = []
     @unexcused_counts = []
     @late_counts = []
@@ -38,34 +63,54 @@ class CoursesController < ApplicationController
 
       # get the ids of all the students in the course
       student_ids = CourseUser.select('user_id').where( course_id: course.id )
-      # use the ids to get the actual students info
-      students = Student.where( :id => student_ids )
 
       # save the counts of each courses total lates/excuseds/unexcuseds
+      # get count of excused students
       @excused_counts.push( Attendance.where( :user_id => student_ids, status: 2).count )
+      # get count of unexcused students
       @unexcused_counts.push( Attendance.where( :user_id => student_ids, status: 3).count )
+      # get count of late students
       @late_counts.push( Attendance.where( :user_id => student_ids, status: 1).count )
+
+      # get all the ids of students that have danger on thier attendance
       danger_student_ids = Attendance.select('user_id').where( :user_id => student_ids, danger: true)
+      # save the list of danger students
       @danger_student_lists.push( Student.where( :id => danger_student_ids ) )
     end
   end
 
   def overview
 
-    # dont let students view this
-    @current_user = User.find( session['current_user']['id'] )
+    # if some one is logged in
+    if session[:current_user]
+      # set them as current user
+      # have to get the logged in user since the session doesnt have the type
+      # not sure why session doesnt have the type in it
+      # so we use the id from the session to get the user info from the User table
+      @current_user = User.find( session[:current_user]['id'] )
+    else
+      # if no one is logged in send to home/login page
+      redirect_to "/" and return
+    end
 
+    # dont let students view this
+    # check if the type of user is Student
     if ( @current_user.type == 'Student')
+      # if so send them to their own page since that is the only view thet are allowed to see
+      # .to_s becuase the user id is an integer in the database
       redirect_to '/students/' + @current_user['id'].to_s
     end
-    
-    @course = Course.find(params['id'])
+
+    # get the course we are looking at
+    @course = Course.find_by(id: params[:id])
+
     #  get a list of all the users in this course
     course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
 
     # get all the attendance for this course
-    @lateStudents = Student.joins(:attendance).select('users.*, attendances.*').where( :id => course_user_ids ).references(:attendance)
-    render :overview
+    # this selects from the students table and joins it with the attendances table
+    # we select everything from both so we have .name and .status etc
+    @lateStudents = Student.joins(:attendance).select('users.*, attendances.*').where( :id => course_user_ids )
   end
   
   # GET /courses/1
@@ -73,27 +118,46 @@ class CoursesController < ApplicationController
   def show
     
     # dont let students view this
+    # get the user object of the current logged in user using the session id
     @current_user = User.find( session['current_user']['id'] )
 
+    # check if the type of user is Student
     if ( @current_user.type == 'Student')
+      # if so send them to their own page since that is the only view thet are allowed to see
+      # .to_s becuase the user id is an integer in the database
       redirect_to '/students/' + @current_user['id'].to_s
     end
 
+    # if it's an instructor only allow them to see their own classes
+    if @current_user.type == 'Instructor'
+      # get a list of ids for all the instructors courses
+      instructors_courses = CourseUser.where( user_id: @current_user.id ).pluck('course_id').to_a
+      # if the course we are trying to view is not in that list
+      if not params[:id].to_i.in? instructors_courses
+        # send them back to the course index page
+        redirect_to '/courses'
+      end
+    end
+
+    # see if there is a date offset like: "?date_offset=5"
     if ( params['date_offset'] ) 
       
       # this is the value in the url like ?date_offset=1
       offset = Integer(params['date_offset'])
       # todays date plus the offset (which can be negative)
+      # so (today + 1) or ( today + -5 )
+      # add the offset nomber of days to today
       date = Time.now + offset.day
 
-      # buttons are current offset +/- 1
+      # set buttons values to the offset +/- 1
       @nextButtonVal = Integer(params['date_offset']) + 1
       @prevButtonVal = Integer(params['date_offset']) - 1
 
     else
-      
+      # no date_offset param
       # just get todays date
       date = Time.now
+
       # buttons go back and forward 1 day
       @nextButtonVal = "1"
       @prevButtonVal = "-1"
@@ -101,7 +165,7 @@ class CoursesController < ApplicationController
     end
 
     # convert to text
-    @date = date.strftime("%m/%d/%Y") 
+    @date = date.strftime("%m/%d/%Y") #shows date like 02/15/16
 
 
     #  get a list of all the users in this course
@@ -113,10 +177,10 @@ class CoursesController < ApplicationController
     # if there are any students in the attendance table for this day make a list of just their ids
     if lateStudents.length > 0
 
-      # make an array to hold the ids
+      # make an array to hold the ids of the late students
       lateStudentIds = []
 
-      # add the ids one at a time
+      # add the ids one at a time to the array
       lateStudents.each do | lateStudent |
         lateStudentIds.push(lateStudent.id)
       end

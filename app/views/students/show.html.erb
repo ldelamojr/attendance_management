@@ -24,8 +24,8 @@
 
   </div>
 
-    <% if @danger_count >= 3 %>
+    <% if @danger_count >= 3 && @current_user.type == "Student" %>
       <button class="push"> Please Contact Producer</button>
-  <% end %>
+    <% end %>
 
 </div>

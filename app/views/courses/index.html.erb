@@ -1,31 +1,42 @@
-<h1>Welcome, <%= session[:current_user]['name'] %></h1>
-<%= image_tag(avatar_url(@current_user), size: "48") %> <!-- Gravatar -->
-<h2>CURRENT WDI COURSES</h2>
+<div class="courseDivider"><p>CURRENT WDI COURSES</p></div>
+  
+<div class="producerOverview">
+  
+  <%= image_tag(avatar_url(@current_user), size: "78", class:"gravatar") %>  <!-- gravatar -->
+  <p><%= @current_user.name %></p>
 
-<ul>
-  <!--  loop through all the users courses -->
-  <!-- we use each_with_index so we can reference the arrays of values correctly -->
-  <% @courses.each_with_index do | course, index | %>
-    <li>
-      <div class="course_name">
-        <a href="/courses/<%= course.id %>" title=""><%= course.name%></a>
-        <span class="attendance_excused">E:<%= @excused_counts[index] %></span>
-        <span>|</span>
-        <span class="attendance_unexcused">U:<%= @unexcused_counts[index] %></span>
-        <span>|</span>
-        <span class="attendance_late">L:<%= @late_counts[index] %></span>
-      </div>
-      <% if @current_user['type'] == 'Producer' %>
-      <div class="danger-students">
-        <% @danger_student_lists[ index ].each do |dangerStudent | %>
-        <%= image_tag(avatar_url(dangerStudent), size: "48") %> <!-- Gravatar -->
-        <%= dangerStudent.name %>
+  <ul>
+    <!--  loop through all the users courses -->
+    <!-- we use each_with_index so we can reference the arrays of values correctly -->
+    <% @courses.each_with_index do | course, index | %>
+      <li>
+      <div class="course-wrapper">
+        <div class="course-name">
+          <a href="/courses/<%= course.id %>" title=""><%= course.name%></a>
+          <div class="status">
+            <span>E:<%= @excused_counts[index] %> | U:<%= @unexcused_counts[index] %> | L:<%= @late_counts[index] %></span>
+            <div class="arrow-down"></div>
+          </div>
+        </div>
+        
+        <% if @current_user['type'] == 'Producer' && @danger_student_lists[index].length > 0 %>
+        
+          <div class="danger-students">
 
-          <%= button_to 'Contact '+ dangerStudent.name, {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post  %>
-         
+            <% @danger_student_lists[ index ].each do | dangerStudent | %>
+
+              <div class="danger-student clearfix">
+                <%= image_tag(avatar_url(dangerStudent), size: "48", class:"gravatar") %> <!-- Gravatar -->
+
+                <a href="/students/<%= dangerStudent.id %>"><%= dangerStudent.name %></a>
+                <%= button_to 'Contact', {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post, :class=>"push"  %>
+              </div>
+            
+            <% end %>
+          </div>
         <% end %>
       </div>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -165,11 +165,9 @@ body {
 }
 
 form {
-	button,
 	label {
   	padding: 30px 0 5px 0;
 		font-size: 20px;
-		text-transform: capitalize;
 	}
 	input {
 		width: 100%;
@@ -178,11 +176,7 @@ form {
 		border-radius: 0;
 		font-family: 'Domine', serif;
 	}
-	&.loginForm {
-		button[type="submit"] {
-			padding: 8px 185px;
-		}
-	}
+
 	&.logoutForm {
 		height: 100%;
 		input[type="submit"] {
@@ -204,10 +198,14 @@ form {
 	}
 }
 
-button.push {
+.push {
+	font-family:'Fjalla One', sans-serif; 
 	font-size: 20px;
+	line-height: 20px;
+	text-transform: capitalize;
   padding: 10px 16px 6px;
   margin-top: 20px;
+  height: 36px;
   width: 100%;
 	max-width: 412px;
 	border: none;
@@ -270,8 +268,94 @@ button.push {
   }
 }
 
+.producerOverview {
+  text-align: center;
+  background-color: $White;
+  width: 100%;
+  max-width: 640px;
+  padding: 57px 0 66px 0;
+  margin: 15px auto;
+  button {
+  	margin-bottom: 5px;
+  }
+  p {
+  	margin: 5px 0 15px 0;
+  	font-family: 'Domine', serif;
+		font-size: 20px;
+		text-align: center;
+  }
+  .course-wrapper {
+  	max-width: 412px;
+  	width: 100%;
+  	margin: 0 auto 20px;
+  	border: 1px solid $Black;
+  }
+  .course-name {
+  	width: 100%;
+  	padding: 11px 15px 14px 15px;
+  	text-transform: uppercase;
+  	a {
+  		font-size: 25px;
+  		text-decoration: none;
+  		float: left;
+  		color: $Black;
+  	}
+  	.status {
+			text-align: right;
+			margin-top: 5px;
+		}
+  }
+  .danger-students {
+  	font-family: 'Domine', serif;
+  	border-top: 1px solid $Black;
+  	width: 100%;
+  	text-align: left;
+  	.danger-student {
+  		margin: 10px 20px;
+  		a {
+  			text-decoration: none;
+  			color: $Black;
+  			float: left;
+	  		font-size: 16px;
+	  		line-height: 28px;
+	  		padding-left: 5px;
+  		}
+  	}
+  	.danger-child:last-of-type {
+  		padding-bottom: 5px;
+  	}
+  	.danger-student:nth-child(even) {
+			background-color: $BGGray;
+  	}
+  	.gravatar {
+  		float: left;
+  		height: 28px;
+  		width: 28px;
+  	}
+  	.push {
+  		margin: 0;
+  		width: auto;
+  		float: right;
+  		font-size: 16px;
+  		line-height: 12px;
+  		height: 28px;
+  	}
+  }
+
+}
+
 .gravatar {
 	border-radius: 50%;
+}
+
+.arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid $Black;
+	float: right;
+	margin-left: 20px;
 }
 
 footer {

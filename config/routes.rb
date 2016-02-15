@@ -1,11 +1,16 @@
 
 Rails.application.routes.draw do
 
-  resources :users, only: [:index, :post, :new]
+  resources :users, only: [:index, :post, :new, :logout]
 
   resources :students, only: :show
 
+<<<<<<< HEAD
   resources :courses, only: [:index, :update, :show, :new, :create] do
+=======
+  resources :courses, only: [:index, :update, :show] do
+  	# found this online makes courses/:id/overview route work
+>>>>>>> ee66c024a8af813db7f38c9bf848d9e622294396
     member do
       get 'overview'
     end
@@ -13,6 +18,7 @@ Rails.application.routes.draw do
 
   get '/', to: 'users#index'
   post '/login', to: 'users#login'
-
+  post '/contact', to: 'courses#contact'
+  post '/logout', to: 'users#logout'	
 
 end

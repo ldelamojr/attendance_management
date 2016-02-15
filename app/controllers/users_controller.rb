@@ -6,10 +6,26 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    #  see if they are alreayd logged in
+    if session[:current_user]
+      puts("logged in already")
+      # if so get their info
+      @current_user = User.find( session['current_user']['id'] )
+
+      # send stundents to their page
+      if @current_user.type == "Student"
+        # and return is needed because there is more than one redirect/render on this action
+        redirect_to "/students/" + @current_user.id.to_s and return
+      else
+        # send instructors/producers to courses view
+        redirect_to "/courses" and return
+      end
+    end
     render :index
   end
 
   def login
+
     # finds user by their email address, then compares password
     user = User.find_by(email: params['email'])
     # if there is a user with that email see if it's password matches

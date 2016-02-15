@@ -25,6 +25,9 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
+html{
+	height: 100%;
+}
 body {
   line-height: 1;
   min-height: 100%;
@@ -67,7 +70,18 @@ table {
 COLOR VARIABLES
 **/
 $ButtonRed: #FA4542;
+$ButtonRedHover: #F6201D;
 $ButtonRedShadow: #BE0201;
+$BGGray: #ececec;
+$Black: #000;
+$White: #fff;
+$Greeting: #222;
+
+/**
+SIZE VARIABLE
+**/
+$footerHeight: 35px;
+
 
 * {
   box-sizing: border-box;
@@ -77,18 +91,21 @@ body {
   -webkit-font-smoothing: antialiased;
 	font-family: 'Fjalla One', sans-serif;
   text-align: left;
-  color: #000;
-  background: #ececec;
+  color: $Black;
+  background: $BGGray;
+  position: relative;
+  padding-bottom: $footerHeight + 20px;
 }
 
 .header {
-  padding: 15px 30px 15px 25px;
+  padding: 0 30px 0 25px;
   height: 65px;
   position: relative;
-  background-color: #000;
+  background-color: $Black;
 }
 
 .logo {
+	margin: 15px 0;
   height: 34px;
   width: 554px;
   display: block;
@@ -96,7 +113,26 @@ body {
 }
 
 .greeting {
+	background-color: $White;
+	text-align: center;
+	padding: 20px 0;
+	span {
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
+	}
+}
 
+.courseDivider {
+	padding: 30px 0;
+	p {
+		margin: 0 40px 0 40px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid $Black;
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
+	}
 }
 
 .error {
@@ -108,11 +144,11 @@ body {
 
 .login {
 	text-align: center;
-	background-color: #fff;
+	background-color: $White;
 	width: 100%;
 	max-width: 640px;
 	padding: 35px 0 66px 0;
-	margin: 100px auto 20px auto;
+	margin: 65px auto 20px auto;
 	label {
 		display: block;
 	}
@@ -121,18 +157,18 @@ body {
 		font-family: 'Domine', serif;
 		font-size: 15px;
 		line-height: 20px;
-	}
-		.main {
+		&.main {
 			font-size: 24px;
 			line-height: 65px;
 		}
+	}	
 }
 
 form {
 	button,
 	label {
+  	padding: 30px 0 5px 0;
 		font-size: 20px;
-    padding: 30px 0 5px 0;
 		text-transform: capitalize;
 	}
 	input {
@@ -142,34 +178,111 @@ form {
 		border-radius: 0;
 		font-family: 'Domine', serif;
 	}
-	button {
-		border: none;
-		background-color: $ButtonRed;
-		box-shadow: 0 3px 0 0 $ButtonRedShadow;
-		border-radius: 3px;
-		color: #fff;
-		margin-top: 20px;
-	}
 	&.loginForm {
 		button[type="submit"] {
 			padding: 8px 185px;
-			font-size: 20px;
 		}
 	}
 	&.logoutForm {
-		
+		height: 100%;
+		input[type="submit"] {
+			border: none;
+			background-color: $Black;
+			color: $White;
+			float: right;
+			padding: 8px 16px;
+			font-family: 'Domine', serif;
+			font-weight: 700;
+			font-size: 15px;
+			height: 100%;
+			width: auto;
+			&:hover {
+				background-color: $White;
+				color: $ButtonRed;			
+			}
+		}
 	}
 }
 
+button.push {
+	font-size: 20px;
+  padding: 10px 16px 6px;
+  margin-top: 20px;
+  width: 100%;
+	max-width: 412px;
+	border: none;
+	background-color: $ButtonRed;
+	box-shadow: 0 3px 0 0 $ButtonRedShadow;
+	border-radius: 3px;
+	color: $White;
+		&:hover {
+			background-color: $ButtonRedHover;
+		}
+}
+
+.studentOverview {
+  text-align: center;
+  background-color: $White;
+  width: 100%;
+  max-width: 640px;
+  padding: 57px 0 66px 0;
+  margin: 15px auto;
+  button {
+  	margin-bottom: 5px;
+  }
+  p {
+  	margin: 5px 0 15px 0;
+  	font-family: 'Domine', serif;
+		font-size: 20px;
+		text-align: center;
+  }
+  .status-list {
+  	width: 100%;
+		max-width: 412px;
+		margin: 0 auto;
+  	.status-list-header,
+  	.status-list-item {
+  		overflow: hidden;
+  		div {
+  			width: 50%;
+  			float: left;
+  			text-align: center;
+  		}
+  		&:nth-child(even) {
+  			background-color: $BGGray;
+  		}
+  	}
+  .status-list-header {
+		border: 1px solid $Black;
+		padding: 15px;
+	}
+	.status-list-item {
+		padding: 5px 0;
+	}
+  }
+  .status-list-body {
+  	font-family: 'Domine', serif;
+  	font-size: 15px;
+  	border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+  }
+}
+
+.gravatar {
+	border-radius: 50%;
+}
+
 footer {
-  padding: 25px 0 15px 0;
-  height: 65px;
+	line-height: $footerHeight;
+  height: $footerHeight;
   width: 100%;
   position: absolute;
   bottom: 0;
-  background-color: #000;
+  background-color: $Black;
   	p {
-  		color: #fff;
+  		color: $White;
   		display: block;
 			font-family: 'Domine', serif;
 			font-size: 13px;

@@ -68,7 +68,10 @@ class StudentsController < ApplicationController
 
     # if you can view then view it
     if can_view
-
+      #first get "course user" for the user we are viewing
+      student_course = CourseUser.where(user_id: params[:id]).first
+      #next get the course info by using the course_id from the "course user"
+      @course = Course.find(student_course.course_id)
       # get all the attendances that are late (1) or unexcused (3)
       # for the student we are trying to view
       # because those are the only ones we count for danger
@@ -84,7 +87,7 @@ class StudentsController < ApplicationController
     else
       # otherwise redirect to home
       # this should only happen for students
-      redirect_to "/"
+      redirect_to "/students/" + @current_user.id.to_s
     end
 
   end

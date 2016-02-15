@@ -67,11 +67,18 @@ table {
 COLOR VARIABLES
 **/
 $ButtonRed: #FA4542;
+$ButtonRedHover: #F6201D;
 $ButtonRedShadow: #BE0201;
 $BGGray: #ececec;
 $Black: #000;
 $White: #fff;
 $Greeting: #222;
+
+/**
+SIZE VARIABLE
+**/
+$footerHeight: 35px;
+
 
 * {
   box-sizing: border-box;
@@ -83,6 +90,8 @@ body {
   text-align: left;
   color: $Black;
   background: $BGGray;
+  position: relative;
+  padding-bottom: $footerHeight + 20px;
 }
 
 .header {
@@ -166,9 +175,6 @@ form {
 		border-radius: 0;
 		font-family: 'Domine', serif;
 	}
-	button {
-		margin-top: 20px;
-	}
 	&.loginForm {
 		button[type="submit"] {
 			padding: 8px 185px;
@@ -198,6 +204,7 @@ form {
 button.push {
 	font-size: 20px;
   padding: 10px 16px 6px;
+  margin-top: 20px;
   width: 100%;
 	max-width: 412px;
 	border: none;
@@ -205,6 +212,9 @@ button.push {
 	box-shadow: 0 3px 0 0 $ButtonRedShadow;
 	border-radius: 3px;
 	color: $White;
+		&:hover {
+			background-color: $ButtonRedHover;
+		}
 }
 
 .studentOverview {
@@ -212,31 +222,48 @@ button.push {
   background-color: $White;
   width: 100%;
   max-width: 640px;
-  padding: 35px 0 66px 0;
+  padding: 57px 0 66px 0;
   margin: 15px auto;
   button {
   	margin-bottom: 5px;
   }
   p {
-  	margin-top: 5px;
+  	margin: 5px 0 15px 0;
   	font-family: 'Domine', serif;
 		font-size: 20px;
 		text-align: center;
   }
-  table {
-  	margin: 20px auto;
-  	border: 1px solid $Black;
-  	th:first-child {
-  		border-right: 1px solid $Black;
+  .status-list {
+  	width: 100%;
+		max-width: 412px;
+		margin: 0 auto;
+  	.status-list-header,
+  	.status-list-item {
+  		overflow: hidden;
+  		div {
+  			width: 50%;
+  			float: left;
+  			text-align: center;
+  		}
+  		&:nth-child(even) {
+  			background-color: $BGGray;
+  		}
   	}
-  	th {
-  		border-bottom: 1px solid $Black;
-  		padding: 10px;
-  	}
-  	td {
-  		padding: 5px 10px;
-  	}
-
+  .status-list-header {
+		border: 1px solid $Black;
+		padding: 15px;
+	}
+	.status-list-item {
+		padding: 5px 0;
+	}
+  }
+  .status-list-body {
+  	font-family: 'Domine', serif;
+  	font-size: 15px;
+  	border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
   }
 }
 
@@ -245,8 +272,8 @@ button.push {
 }
 
 footer {
-  padding: 25px 0 15px 0;
-  height: 65px;
+	line-height: $footerHeight;
+  height: $footerHeight;
   width: 100%;
   position: absolute;
   bottom: 0;

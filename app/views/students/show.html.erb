@@ -7,27 +7,20 @@
   <p><%= @student.name %></p>
 
   <!-- if the student has a danger count of 3 or me tell them to contact -->
-
-  <table>
-    <thead>
-      <tr>
-        <th>DATE</th>
-        <th>STATUS</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-
+  <div class="status-list">
+    <div class="status-list-header">
+      <div>DATE</div>
+      <div>STATUS</div>
+    </div>
+    <div class="status-list-body">
       <% @student_attendance.each do |a| %>
-        <tr>
-          <td><%= a.date %></td> 
-          <td><%= a.status %></td>  
-        </tr>
+        <div class="status-list-item">
+          <div><%= a.date.strftime("%m / %d / %y") %></div>
+          <div><%= a.status %></div>
+        </div>
       <% end %>
-
-    </tbody>
-  </table>
+    </div>
+  </div>
     <% if @danger_count >= 3 %>
     <div class"contactButton">
       <button class="push"> Please Contact Producer</button>

@@ -68,7 +68,10 @@ class StudentsController < ApplicationController
 
     # if you can view then view it
     if can_view
-
+      #first get the id of the student's course
+      student_course_id = CourseUser.where(user_id: params[:id]).first
+      #next get the course info by using the id
+      @course = Course.find(student_course_id)
       # get all the attendances that are late (1) or unexcused (3)
       # for the student we are trying to view
       # because those are the only ones we count for danger

@@ -101,7 +101,26 @@ body {
 }
 
 .greeting {
+	background-color: $White;
+	text-align: center;
+	padding: 20px 0;
+	span {
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
+	}
+}
 
+.courseDivider {
+	padding: 30px 0;
+	p {
+		margin: 0 40px 0 40px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid $Black;
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
+	}
 }
 
 .error {
@@ -117,7 +136,7 @@ body {
 	width: 100%;
 	max-width: 640px;
 	padding: 35px 0 66px 0;
-	margin: 100px auto 20px auto;
+	margin: 65px auto 20px auto;
 	label {
 		display: block;
 	}
@@ -130,15 +149,14 @@ body {
 			font-size: 24px;
 			line-height: 65px;
 		}
-	}
-	
+	}	
 }
 
 form {
 	button,
 	label {
+  	padding: 30px 0 5px 0;
 		font-size: 20px;
-    padding: 30px 0 5px 0;
 		text-transform: capitalize;
 	}
 	input {
@@ -149,17 +167,11 @@ form {
 		font-family: 'Domine', serif;
 	}
 	button {
-		border: none;
-		background-color: $ButtonRed;
-		box-shadow: 0 3px 0 0 $ButtonRedShadow;
-		border-radius: 3px;
-		color: $White;
 		margin-top: 20px;
 	}
 	&.loginForm {
 		button[type="submit"] {
 			padding: 8px 185px;
-			font-size: 20px;
 		}
 	}
 	&.logoutForm {
@@ -176,21 +188,60 @@ form {
 			height: 100%;
 			width: auto;
 			&:hover {
-				background-color: $BGGray;
+				background-color: $White;
 				color: $ButtonRed;			
 			}
 		}
 	}
 }
 
-.greeting {
-	background-color: $White;
-	text-align: center;
-	span {
-		text-transform: uppercase;
-		font-size: 30px;
-		color: $Greeting;
-	}
+button.push {
+	font-size: 20px;
+  padding: 10px 16px 6px;
+  width: 100%;
+	max-width: 412px;
+	border: none;
+	background-color: $ButtonRed;
+	box-shadow: 0 3px 0 0 $ButtonRedShadow;
+	border-radius: 3px;
+	color: $White;
+}
+
+.studentOverview {
+  text-align: center;
+  background-color: $White;
+  width: 100%;
+  max-width: 640px;
+  padding: 35px 0 66px 0;
+  margin: 15px auto;
+  button {
+  	margin-bottom: 5px;
+  }
+  p {
+  	margin-top: 5px;
+  	font-family: 'Domine', serif;
+		font-size: 20px;
+		text-align: center;
+  }
+  table {
+  	margin: 20px auto;
+  	border: 1px solid $Black;
+  	th:first-child {
+  		border-right: 1px solid $Black;
+  	}
+  	th {
+  		border-bottom: 1px solid $Black;
+  		padding: 10px;
+  	}
+  	td {
+  		padding: 5px 10px;
+  	}
+
+  }
+}
+
+.gravatar {
+	border-radius: 50%;
 }
 
 footer {

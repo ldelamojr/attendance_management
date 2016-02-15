@@ -5,12 +5,10 @@ Rails.application.routes.draw do
 
   resources :students, only: :show
 
-<<<<<<< HEAD
-  resources :courses, only: [:index, :update, :show, :new, :create] do
-=======
+
   resources :courses, only: [:index, :update, :show] do
   	# found this online makes courses/:id/overview route work
->>>>>>> ee66c024a8af813db7f38c9bf848d9e622294396
+
     member do
       get 'overview'
     end

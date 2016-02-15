@@ -188,23 +188,7 @@ class CoursesController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
 
-  def new 
-    # creates new data in attendance column 
-    @attendance = Attendance.new
-  end
-
-
-  def create
-    @attendance = Attendance.new(params.require(:attendance).permit(:user_id, :date, :status))
-    if @attendance.save
-      render :show
-    else
-      render :show
-    end
-
-=======
   def contact
 binding.pry
     account_sid = ""
@@ -226,7 +210,6 @@ binding.pry
         :body => "Hey #{value}, it's #{session[:current_user]['name']}! Can you please email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
       )
     end
->>>>>>> ee66c024a8af813db7f38c9bf848d9e622294396
   end
 
   private

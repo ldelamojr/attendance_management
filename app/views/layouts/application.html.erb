@@ -20,13 +20,12 @@
 		</form>
 	<% end %>
 </div>
-<div class="greeting">
-	<% if session['current_user'] %>
+<% if session['current_user'] %>
+	<div class="greeting">
 		<!-- get the user name from the current_user in the session -->
-			<span>Welcome, <%= session['current_user']['name'] %></span>
-	<% end %>
-</div>
-
+		<span>Welcome, <%= session['current_user']['name'] %></span>
+	</div>
+<% end %>
 <%= yield %>
 <footer class="footer">
 <p>&copy;Attendance Management 2016.</p>

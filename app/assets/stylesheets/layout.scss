@@ -68,6 +68,10 @@ COLOR VARIABLES
 **/
 $ButtonRed: #FA4542;
 $ButtonRedShadow: #BE0201;
+$BGGray: #ececec;
+$Black: #000;
+$White: #fff;
+$Greeting: #222;
 
 * {
   box-sizing: border-box;
@@ -77,18 +81,19 @@ body {
   -webkit-font-smoothing: antialiased;
 	font-family: 'Fjalla One', sans-serif;
   text-align: left;
-  color: #000;
-  background: #ececec;
+  color: $Black;
+  background: $BGGray;
 }
 
 .header {
-  padding: 15px 30px 15px 25px;
+  padding: 0 30px 0 25px;
   height: 65px;
   position: relative;
-  background-color: #000;
+  background-color: $Black;
 }
 
 .logo {
+	margin: 15px 0;
   height: 34px;
   width: 554px;
   display: block;
@@ -108,7 +113,7 @@ body {
 
 .login {
 	text-align: center;
-	background-color: #fff;
+	background-color: $White;
 	width: 100%;
 	max-width: 640px;
 	padding: 35px 0 66px 0;
@@ -121,11 +126,12 @@ body {
 		font-family: 'Domine', serif;
 		font-size: 15px;
 		line-height: 20px;
-	}
-		.main {
+		&.main {
 			font-size: 24px;
 			line-height: 65px;
 		}
+	}
+	
 }
 
 form {
@@ -147,7 +153,7 @@ form {
 		background-color: $ButtonRed;
 		box-shadow: 0 3px 0 0 $ButtonRedShadow;
 		border-radius: 3px;
-		color: #fff;
+		color: $White;
 		margin-top: 20px;
 	}
 	&.loginForm {
@@ -157,7 +163,33 @@ form {
 		}
 	}
 	&.logoutForm {
-		
+		height: 100%;
+		input[type="submit"] {
+			border: none;
+			background-color: $Black;
+			color: $White;
+			float: right;
+			padding: 8px 16px;
+			font-family: 'Domine', serif;
+			font-weight: 700;
+			font-size: 15px;
+			height: 100%;
+			width: auto;
+			&:hover {
+				background-color: $BGGray;
+				color: $ButtonRed;			
+			}
+		}
+	}
+}
+
+.greeting {
+	background-color: $White;
+	text-align: center;
+	span {
+		text-transform: uppercase;
+		font-size: 30px;
+		color: $Greeting;
 	}
 }
 
@@ -167,9 +199,9 @@ footer {
   width: 100%;
   position: absolute;
   bottom: 0;
-  background-color: #000;
+  background-color: $Black;
   	p {
-  		color: #fff;
+  		color: $White;
   		display: block;
 			font-family: 'Domine', serif;
 			font-size: 13px;

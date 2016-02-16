@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   resources :students, only: :show
 
   resources :courses, only: [:index, :update, :show, :create] do
+
+
   	# found this online makes courses/:id/overview route work
+
     member do
       get 'overview'
     end

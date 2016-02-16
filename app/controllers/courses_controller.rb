@@ -238,6 +238,7 @@ class CoursesController < ApplicationController
     end
   end
 
+
   def contact
     binding.pry
     account_sid = ""

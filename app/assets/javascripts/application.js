@@ -15,15 +15,26 @@
 //= require turbolinks
 //= require_tree .
  $(function() {
-
+  //Get the slide down for overview table
   $('tbody').hide().slideDown();
   var $td = $('td');
   $td.hide().each(function(index) {
     $(this).delay(30 * index).fadeIn(30);
   });
+  $(function() {
 
-  $td.on('click', function() {
-    $(this).fadeOut(30);
+  // Get the background color of overview table
+  var backgroundColor = $('table').css('background-color');
+  $('td').css({
+    'background-color': '#c5a996',
+    'border': '1px solid #fff',
+    'color': '#000',
+    'text-shadow': 'none',
+    'font-family': 'Georgia',
+    'padding-left': '+=75'
   });
+  
+});
 
 });
+ 

@@ -81,8 +81,14 @@ class StudentsController < ApplicationController
       # get the count of unexcuseds
       @unexcused_count = Attendance.where(user_id: params[:id], status: [3]).count
       # add em up, 3 lates = 1 unexcused
-      # we divide because a late is 1/3 of an unexecused absence 
-      @danger_count = (@lateness_count / 3) + @unexcused_count
+      # we multiply because a late is 1/3 of an unexecused absence 
+      @danger_count = (@lateness_count * 3) + @unexcused_count
+
+      if @danger_count >= 3 
+        Attendance.update(params[:id], :danger => true)
+      else 
+        Attendance.update(params[:id], :danger => false)
+      end
 
     else
       # otherwise redirect to home

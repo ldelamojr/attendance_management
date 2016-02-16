@@ -1,0 +1,18 @@
+<%= @course.name %> OVERVIEW
+
+<table>
+	<thead>
+		<td>NAME</td>
+		<td>DATE</td>
+		<td>STATUS</td>
+	</thead>
+	<tbody>
+		<% @lateStudents.each do |lateStudent| %>
+			<tr>
+				<td><%= lateStudent.name %></td>
+				<td><%= lateStudent.date %></td>
+				<td><%= lateStudent.status %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

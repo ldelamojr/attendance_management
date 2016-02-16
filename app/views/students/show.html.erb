@@ -1,23 +1,31 @@
-<h1>Attendance</h1>
+<div class="courseDivider"><p> <%= @course.name %> </p></div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="studentOverview">
+  
+  <%= image_tag(avatar_url(@student), size: "78", class:"gravatar") %>  <!-- gravatar -->
+  <p><%= @student.name %></p>
 
+  <!-- if the student has a danger count of 3 or me tell them to contact -->
+  <div class="status-list">
 
-  <tbody>
-    <% @late_students.each do |late| %>
-      <tr>
-        <td>Status: <%= late.status %></td>
-        <td>When: <%= late.date %></td>
-        <td>In Danger: <%= late.danger %></td>
-      </tr>
+    <div class="status-list-header">
+      <div>DATE</div>
+      <div>STATUS</div>
+    </div>
+
+    <div class="status-list-body">
+      <% @student_attendance.each do |a| %>
+        <div class="status-list-item">
+          <div><%= a.date.strftime("%m / %d / %y") %></div>
+          <div><%= a.status %></div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+    <% if @danger_count >= 3 && @current_user.type == "Student" %>
+      <button class="push"> Please Contact Producer</button>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+</div>

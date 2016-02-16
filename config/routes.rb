@@ -1,20 +1,21 @@
+
 Rails.application.routes.draw do
 
-  resources :users, only: [:index, :post, :new]
-
-  resources :producers, only: :show do
-    resources :instructors, only: :show
-    resources :students, only: :show
-  end
-
-  resources :instructors, only: :show do
-    resources :students, only: :show
-  end
+  resources :users, only: [:index, :post, :new, :logout]
 
   resources :students, only: :show
-  resources :courses, only: [:update, :show]
+
+  resources :courses, only: [:index, :update, :show, :create] do
+  	# found this online makes courses/:id/overview route work
+    member do
+      get 'overview'
+    end
+  end
 
   get '/', to: 'users#index'
   post '/login', to: 'users#login'
+  post '/contact', to: 'courses#contact'
+  post '/logout', to: 'users#logout'
+  get '/receive_sms', to: 'courses#receive_sms'	
 
 end

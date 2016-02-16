@@ -28,42 +28,14 @@
               <div class="name"><a href="/students/<%= student.id%>" title=""><%= student.name %></a></div>
               
               <div class="statusSubmit">
-                <%                  
-                  # create some empty string variables so that all select options of not selcted by default
-                  @presentSelected = ""
-                  @lateSelected = "" 
-                  @excusedSelected = ""
-                  @unexcusedSelected = ""
-                  # see if the student has a status. 
-                  # most wont by default so this makes sure there is not error
-                  if defined? student.status
-                    # if the student.status == "Present" then @presentSelected = "selected"
-                    # this changes the empty string above to be "selected" 
-                    # so the correct option in the select is "Selected"
-                    case student.status
-                      when "Present"
-                        @presentSelected = "selected"
-                      when "Late"
-                        @lateSelected = "selected"
-                      when "Excused"
-                        @excusedSelected = "selected"
-                      when "Unexcused"
-                        @unexcusedSelected = "selected"                    
-                      end                
-                  end 
-                %>
                 <input type="hidden" name="user_id" value="<%= student.id %>">
                 <input type="hidden" name="course_id" value="<%= @course.id %>">
                 <input type="hidden" name="date" value="<%= @date %>">
                 <select name="status">
-                  <!-- < % = if ( student.attendance.status == "present" ) then print("selected") end % >-->
-                  <!-- insert the values from above -->
-                  <!-- most will be empty "" -->
-                  <!-- only 1 per student at most should be "selected" -->
-                  <option value="present" <%= @presentSelected %> >PRESENT</option>
-                  <option value="late" <%= @lateSelected %> >LATE</option>
-                  <option value="excused" <%= @excusedSelected %> >EXCUSED</option>
-                  <option value="unexcused" <%= @unexcusedSelected %> >UNEXCUSED</option>
+                  <option value="present" >PRESENT</option>
+                  <option value="late" >LATE</option>
+                  <option value="excused" >EXCUSED</option>
+                  <option value="unexcused" >UNEXCUSED</option>
                 </select>
                 <input class="push" type="submit" value="SUBMIT" >
               </div>

@@ -104,23 +104,6 @@ class CoursesController < ApplicationController
       params.permit(:status, :date, :user_id, :course_id, :danger)
   end
 
-  # edits a cheese
-
-  # def edit
-  #   @cheeses = Cheese.find(params[:id])
-  # end
-
-  # def update
-  #     @cheeses = Cheese.find(params[:id])
-  #     if @cheeses.update_attributes(cheese_params)
-  #         redirect_to "/cheeses/#{params[:id]}"
-  #     else
-  #       render :edit
-  #     end
-  # end 
-
-  #//////////////////////////////
-
   def overview
 
     # if some one is logged in
@@ -191,6 +174,14 @@ class CoursesController < ApplicationController
       # add the offset nomber of days to today
       date = Time.now + offset.day
       status_date = (Time.now + offset.day).strftime('%Y-%m-%d')
+
+      # if the date offset is negative we are in the past so we can show the next button
+      if params['date_offset'].to_i < 0
+        @showNextButton = true
+      else
+        @showNextButton = false
+      end
+
       # set buttons values to the offset +/- 1
       @nextButtonVal = Integer(params['date_offset']) + 1
       @prevButtonVal = Integer(params['date_offset']) - 1
@@ -240,6 +231,8 @@ class CoursesController < ApplicationController
     else
       # no late students so just get all the students in that course
       @students = Student.where(:id => course_user_ids)
+      
+
 
       # @students.each do |student|
       # @attendance = Attendance.where(:user_id => student.id)

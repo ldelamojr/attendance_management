@@ -8,7 +8,11 @@
   <div class="datenav clearfix">
     <a href="/courses/<%= @course.id %>/?date_offset=<%= @prevButtonVal %>" class="arrow-left"></a>
     <span class="date"><%= @date %></span>
-    <a href="/courses/<%= @course.id %>/?date_offset=<%= @nextButtonVal %>" class="arrow-right"></a>
+ 
+    <% if @showNextButton %>   
+      <a href="/courses/<%= @course.id %>/?date_offset=<%= @nextButtonVal %>" class="arrow-right"></a>
+    <%end%>
+
   </div>
 
   <!-- added method and changed to courses route -->

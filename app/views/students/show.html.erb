@@ -1,4 +1,7 @@
-<div class="courseDivider"><p> <%= @course.name %> </p></div>
+<div class="courseDivider">
+  <a href="/courses/<%= @course.id %>/">Back</a>
+  <p> <%= @course.name %> </p>
+</div>
 
 <div class="studentOverview">
   
@@ -19,7 +22,7 @@
           <div><%= a.date.strftime("%m / %d / %y") %></div>
           <div><%= a.status %></div>
         </div>
-      <% end %>
+      <%end%>
     </div>
 
   </div>

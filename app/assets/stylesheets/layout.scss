@@ -384,11 +384,25 @@ form {
   	.status-list-header,
   	.status-list-item {
   		overflow: hidden;
-  		div {
-  			width: 50%;
+      div {
+        line-height: 40px;
+        width: 50%;
+        float: left;
+        text-align: center;
+      }
+      .name {
+        line-height: 40px;
+  			width: 40%;
   			float: left;
   			text-align: center;
   		}
+      .statusSubmit {
+        padding-right: 20px;
+        line-height: 40px;
+        width: 60%;
+        float: left;
+        text-align: center;
+      }
   		&:nth-child(even) {
   			background-color: $BGGray;
   		}
@@ -403,6 +417,14 @@ form {
 			text-decoration: none;
 			color: $Black;
 		}
+    .push {
+      margin-top: 5px;
+      width: auto;
+      float: right;
+      font-size: 16px;
+      line-height: 12px;
+      height: 28px;
+    }
 	}
   }
   .status-list-body {

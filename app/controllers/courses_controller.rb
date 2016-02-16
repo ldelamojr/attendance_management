@@ -97,7 +97,7 @@ class CoursesController < ApplicationController
            @danger_count = (@lateness_count *3) + @unexcused_count 
 
           # if > 3, changes danger to true
-           if @danger_count > 3 
+           if @danger_count > 2 
               Attendance.where(user_id: params["user_id"]).update_all(danger: true)
            else 
               Attendance.where(user_id: params["user_id"]).update_all(danger: false)

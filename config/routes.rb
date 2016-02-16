@@ -5,8 +5,13 @@ Rails.application.routes.draw do
 
   resources :students, only: :show
 
+<<<<<<< HEAD
   resources :courses, only: [:index, :update, :show, :create] do
 
+=======
+
+  resources :courses, only: [:index, :update, :show, :create] do
+>>>>>>> 0669baf9ceeb008516f7b7637af7424c0b7076ce
   	# found this online makes courses/:id/overview route work
 
     member do

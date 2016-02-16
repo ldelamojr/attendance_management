@@ -81,7 +81,7 @@ User.create([{id: 1, name: "Jason Booras", email: "jasonbooras@gmail.com", passw
              {id: 73, name: "Numbers Dong", email: "fakename@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 74, name: "Thomas Worrell", email: "fakename@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 75, name: "Candance Camarena", email: "fakename@gmail.com", password: "123", phone: "2121234567", type: "Student"},
-             {id: 76, name: "John Bell", email: "jaredm@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
+             {id: 76, name: "John Bell", email: "johnb@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
              {id: 77, name: "Jaden Carver", email: "jadenc@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
              {id: 78, name: "Dennis Liaw", email: "dennisl@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
              {id: 79, name: "Bryan Mytko", email: "bryanm@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
@@ -173,11 +173,11 @@ CourseUser.create([{id: 1, user_id: 1, course_id: 1},
                    {id: 73, user_id: 73, course_id: 5},
                    {id: 74, user_id: 74, course_id: 5},
                    {id: 75, user_id: 75, course_id: 5},
-                   {id: 76, user_id: 26, course_id: 1},
-                   {id: 77, user_id: 27, course_id: 2},
-                   {id: 78, user_id: 28, course_id: 3},
-                   {id: 79, user_id: 29, course_id: 4},
-                   {id: 80, user_id: 30, course_id: 5}
+                   {id: 76, user_id: 76, course_id: 1},
+                   {id: 77, user_id: 77, course_id: 2},
+                   {id: 78, user_id: 78, course_id: 3},
+                   {id: 79, user_id: 79, course_id: 4},
+                   {id: 80, user_id: 80, course_id: 5}
                   ])
 
 

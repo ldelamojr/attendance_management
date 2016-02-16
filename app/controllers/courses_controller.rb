@@ -38,9 +38,11 @@ class CoursesController < ApplicationController
     # get the id's of all the courses this instructor/producer belongs too
     # if its a producer
     if @current_user.type == 'Producer'
+      puts("producer");
       # get all the courses
       @courses = Course.all
     else
+      puts("its an instructor")
       # if its an instructor 
       # only get the courses they are associated with
       # use the course user table to get a list of id's of the courses that belong to the logged in instructor

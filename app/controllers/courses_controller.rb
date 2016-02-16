@@ -2,6 +2,8 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   # validates :validate_date
 
+  DANGER_LIMIT = 3
+
   def receive_sms
     content_type 'text/xml'
 
@@ -83,37 +85,24 @@ class CoursesController < ApplicationController
   end
 
   # ///////////////////////////// copied from straight curd'n
-
+  # Technically this is an update
   def create
-      @attendance = Attendance.new(attendance_params)
-      if @attendance.save
-        redirect_to "/courses/" + params[:course_id]
-      else
-        redirect_to "/courses/" + params[:course_id]
-      end
+    attendance = Attendance.find_or_initialize_by(
+      user_id: attendance_params[:user_id],
+      date: attendance_params[:date],
+      course_id: attendance_params[:course_id]
+    )
+
+    attendance.update(status: attendance_params[:status])
+    update_student_danger(params[:user_id])
+
+    redirect_to "/courses/" + params[:course_id]
   end
 
   # # variable for create and delete form
   def attendance_params
-      params.permit(:status, :date, :user_id, :course_id)
+      params.permit(:status, :date, :user_id, :course_id, :danger)
   end
-
-  # edits a cheese
-
-  # def edit
-  #   @cheeses = Cheese.find(params[:id])
-  # end
-
-  # def update
-  #     @cheeses = Cheese.find(params[:id])
-  #     if @cheeses.update_attributes(cheese_params)
-  #         redirect_to "/cheeses/#{params[:id]}"
-  #     else
-  #       render :edit
-  #     end
-  # end 
-
-  #//////////////////////////////
 
   def overview
 
@@ -184,6 +173,14 @@ class CoursesController < ApplicationController
       # so (today + 1) or ( today + -5 )
       # add the offset nomber of days to today
       date = Time.now + offset.day
+      status_date = (Time.now + offset.day).strftime('%Y-%m-%d')
+
+      # if the date offset is negative we are in the past so we can show the next button
+      if params['date_offset'].to_i < 0
+        @showNextButton = true
+      else
+        @showNextButton = false
+      end
 
       # set buttons values to the offset +/- 1
       @nextButtonVal = Integer(params['date_offset']) + 1
@@ -193,7 +190,7 @@ class CoursesController < ApplicationController
       # no date_offset param
       # just get todays date
       date = Time.now
-
+      status_date = Time.now.strftime('%Y-%m-%d')
       # buttons go back and forward 1 day
       @nextButtonVal = "1"
       @prevButtonVal = "-1"
@@ -233,10 +230,21 @@ class CoursesController < ApplicationController
 
     else
       # no late students so just get all the students in that course
-      @students = Student.where(:id => course_user_ids )
+      @students = Student.where(:id => course_user_ids)
+      
+
+
+      # @students.each do |student|
+      # @attendance = Attendance.where(:user_id => student.id)
+      # end
 
     end
+    
+    
+    @attendance_by_date = Attendance.where(date: status_date)
+# binding.pry  
   end
+
 
   def contact
     binding.pry
@@ -262,15 +270,32 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find_by(id: params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find_by(id: params[:id])
+  end
+
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
+  end
+
+  def update_student_danger(id)
+    student = Student.find(id)     
+    attendance = Attendance.where(user: student) 
+
+    lateness_count = attendance.select { |a| a.status == "late" }.count
+    unexcused_count = attendance.select { |a| a.status == "unexcused" }.count
+    danger_count = (lateness_count / 3).floor + unexcused_count
+
+    if danger_count >= DANGER_LIMIT
+      attendance.update_all(danger: true)
+    else 
+      attendance.update_all(danger: false)
     end
+  end
 end
 
   

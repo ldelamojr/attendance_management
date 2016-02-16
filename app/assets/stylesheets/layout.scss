@@ -384,11 +384,25 @@ form {
   	.status-list-header,
   	.status-list-item {
   		overflow: hidden;
-  		div {
-  			width: 50%;
+      div {
+        line-height: 40px;
+        width: 50%;
+        float: left;
+        text-align: center;
+      }
+      .name {
+        line-height: 40px;
+  			width: 40%;
   			float: left;
   			text-align: center;
   		}
+      .statusSubmit {
+        padding-right: 20px;
+        line-height: 40px;
+        width: 60%;
+        float: left;
+        text-align: center;
+      }
   		&:nth-child(even) {
   			background-color: $BGGray;
   		}
@@ -403,12 +417,81 @@ form {
 			text-decoration: none;
 			color: $Black;
 		}
+    .push {
+      margin-top: 5px;
+      width: auto;
+      float: right;
+      font-size: 16px;
+      line-height: 12px;
+      height: 28px;
+    }
 	}
   }
   .status-list-body {
   	font-family: 'Domine', serif;
   	font-size: 15px;
   	border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+  }
+}
+
+.courseOverview {
+  text-align: center;
+  background-color: $White;
+  width: 100%;
+  max-width: 640px;
+  padding: 57px 0 66px 0;
+  margin: 15px auto;
+  button {
+    margin-bottom: 5px;
+  }
+  p {
+    margin: 5px 0 15px 0;
+    font-family: 'Domine', serif;
+    font-size: 20px;
+    text-align: center;
+  }
+  .status-list {
+    width: 100%;
+    max-width: 470px;
+    margin: 0 auto;
+    .status-list-header,
+    .status-list-item {
+      line-height: 40px;
+      overflow: hidden;
+      div {
+        width: 33%;
+        float: left;
+        text-align: center;
+      }
+      .name {
+       width: 40%;
+      }
+      .date {
+        width: 25%;
+      }
+      .status {
+        width: 35%;
+      }
+
+      &:nth-child(even) {
+        background-color: $BGGray;
+      }
+    }
+  .status-list-header {
+    border: 1px solid $Black;
+    padding: 15px;
+  }
+  .status-list-item {
+    padding: 5px 0;
+  }
+  }
+  .status-list-body {
+    font-family: 'Domine', serif;
+    font-size: 15px;
+    border-bottom: 1px solid black;
     border-left: 1px solid black;
     border-right: 1px solid black;
     padding: 15px;

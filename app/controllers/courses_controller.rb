@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  # validates :validate_date
 
   def receive_sms
     content_type 'text/xml'
@@ -80,6 +81,39 @@ class CoursesController < ApplicationController
       @danger_student_lists.push( Student.where( :id => danger_student_ids ) )
     end
   end
+
+  # ///////////////////////////// copied from straight curd'n
+
+  def create
+      @attendance = Attendance.new(attendance_params)
+      if @attendance.save
+        redirect_to "/courses/" + params[:course_id]
+      else
+        redirect_to "/courses/" + params[:course_id]
+      end
+  end
+
+  # # variable for create and delete form
+  def attendance_params
+      params.permit(:status, :date, :user_id, :course_id)
+  end
+
+  # edits a cheese
+
+  # def edit
+  #   @cheeses = Cheese.find(params[:id])
+  # end
+
+  # def update
+  #     @cheeses = Cheese.find(params[:id])
+  #     if @cheeses.update_attributes(cheese_params)
+  #         redirect_to "/cheeses/#{params[:id]}"
+  #     else
+  #       render :edit
+  #     end
+  # end 
+
+  #//////////////////////////////
 
   def overview
 
@@ -174,7 +208,11 @@ class CoursesController < ApplicationController
     course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
 
     # get all the late/excused/unexcused/present students in the course using the id list
-    lateStudents = Student.includes(:attendance).where( attendances: { date: date }, :id => course_user_ids ).references(:attendance)
+
+    # /////////////////
+    # not getting STATUS or any results here :( )
+    lateStudents = Student.joins(:attendance).select('users.*, attendances.*').where( users:{ :id => course_user_ids }, attendances: { date: date, user_id: 'users.id' } )
+    # ////////////////
 
     # if there are any students in the attendance table for this day make a list of just their ids
     if lateStudents.length > 0
@@ -201,7 +239,7 @@ class CoursesController < ApplicationController
   end
 
   def contact
-binding.pry
+    binding.pry
     account_sid = ""
     auth_token = ""
     client = Twilio::REST::Client.new account_sid, auth_token

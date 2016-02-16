@@ -191,6 +191,13 @@ class CoursesController < ApplicationController
       # add the offset nomber of days to today
       date = Time.now + offset.day
 
+      # if the date offset is negative we are in the past so we can show the next button
+      if params['date_offset'].to_i < 0
+        @showNextButton = true
+      else
+        @showNextButton = false
+      end
+
       # set buttons values to the offset +/- 1
       @nextButtonVal = Integer(params['date_offset']) + 1
       @prevButtonVal = Integer(params['date_offset']) - 1

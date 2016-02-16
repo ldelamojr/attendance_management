@@ -1,15 +1,53 @@
+require 'twilio-ruby'
+require 'sinatra'
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
-  def receive_sms
-    content_type 'text/xml'
+  skip_before_action :verify_authenticity_token
 
-    response = Twilio::TwiML::Response.new do |r|
-      r.Message "Thank you, your message has been posted to today's roll sheet."
+  # def receive_sms
+  #   # content_type 'text/xml'
+
+  #   twiml = Twilio::TwiML::Response.new do |r|
+  #     r.Message "Thank you, your message has been posted to today's roll sheet."
+  #   end
+
+  #   twiml.text
+  # end
+    # def sms
+      # content_type 'text/xml'
+       # @message_body = params["Body"]
+       # @from_number = params["From"]
+       # redirect_to courses_path, notice: "Your SMS has been sent to #{params["name"]}"
+       # @course = Course.find(@message_body)
+       # @course.completed = true
+       # @course.save
+       # render nothing: true
+    # end
+
+    def sms 
+
+      message_body = params["Body"]
+      from_number = params["From"]
+      from_number[0] = ''
+      from_number[0] = ''
+      ############################################
+      from_number.insert(6,'-')
+                                #This block of code is in case the db has dashes
+      from_number.insert(3,'-')  
+      ############################################
+
+
+      ############################################
+      #from_number = "212-123-4567"
+      ############################################
+      student = User.find_by(phone: from_number)
+      date = Time.now.strftime('%Y-%m-%d')
+      Attendance.create(message: message_body, user_id: student.id, date: date)
+      binding.pry
+
+      redirect_to :back
     end
-
-    response.to_xml
-  end
   
   # GET /courses
   # GET /courses.json
@@ -148,7 +186,7 @@ class CoursesController < ApplicationController
       # so (today + 1) or ( today + -5 )
       # add the offset nomber of days to today
       date = Time.now + offset.day
-
+      @message_date = (Time.now + offset.day).strftime('%Y-%m-%d')
       # set buttons values to the offset +/- 1
       @nextButtonVal = Integer(params['date_offset']) + 1
       @prevButtonVal = Integer(params['date_offset']) - 1
@@ -157,7 +195,7 @@ class CoursesController < ApplicationController
       # no date_offset param
       # just get todays date
       date = Time.now
-
+      @message_date = Time.now.strftime('%Y-%m-%d')
       # buttons go back and forward 1 day
       @nextButtonVal = "1"
       @prevButtonVal = "-1"
@@ -197,21 +235,13 @@ class CoursesController < ApplicationController
 
     end
 
-    def receive_sms
-      # content_type 'text/xml'
-
-      response = Twilio::TwiML::Response.new do |r|
-        r.Message "Thank you, your message has been posted to today's roll sheet."
-      end
-
-      response.text
-    end
-
+    @attendances_by_message_date = Attendance.where(date: @message_date)
+binding.pry
   end
 
 
   def contact
-binding.pry
+
     account_sid = "AC00822a76118217c7fe71b91ebb891298"
     auth_token = "c95ad825e174c475ab8fc966ebdda9dc"
 
@@ -219,7 +249,7 @@ binding.pry
     # auth_token = ""
     client = Twilio::REST::Client.new account_sid, auth_token
      
-    from = "+14155992671"  # "+17868027784"   #  # Your Twilio number +13473531559
+    from = "+17862358340" # "+14155992671"  # "+17868027784"   #  # Your Twilio number +13473531559
      
     friends = {
     # "+12018981678" => "Ismail jaafar",  #12018981678
@@ -234,6 +264,8 @@ binding.pry
         :body => "Hey #{value}, it's #{session[:current_user]['name']}! Can you please email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
       )
     end
+    redirect_to courses_path, notice: "Your SMS has been sent to #{params["name"]}"
+
   end
 
   private

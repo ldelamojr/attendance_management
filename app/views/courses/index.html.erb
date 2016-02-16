@@ -3,6 +3,9 @@
 <h2>CURRENT WDI COURSES</h2>
 
 <ul>
+        <% if flash[:notice] %>
+          <div class="notice" style="margin-left: 600px"><%= flash[:notice] %></div>
+        <% end %>
   <!--  loop through all the users courses -->
   <!-- we use each_with_index so we can reference the arrays of values correctly -->
   <% @courses.each_with_index do | course, index | %>

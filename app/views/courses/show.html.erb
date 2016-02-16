@@ -40,6 +40,13 @@
             </select>
 
           </td>
+          <td>
+            <% @attendances_by_message_date.each do |attendance_record| %>
+              <% if attendance_record.message != nil && attendance_record.user_id == student.id %>
+                <%= attendance_record.message %>
+              <%end%>
+            <%end%>
+          </td>
         <tr>
       <% end %>
     </tbody>

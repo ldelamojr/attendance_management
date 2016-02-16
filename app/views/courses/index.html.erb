@@ -15,7 +15,9 @@
           <a href="/courses/<%= course.id %>" title=""><%= course.name%></a>
           <div class="status">
             <span>E:<%= @excused_counts[index] %> | U:<%= @unexcused_counts[index] %> | L:<%= @late_counts[index] %></span>
-            <div class="arrow-down"></div>
+            <% if @current_user['type'] == 'Producer' %>
+              <div class="arrow-down"></div>
+            <% end %>
           </div>
         </div>
         

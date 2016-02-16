@@ -124,16 +124,34 @@ body {
 }
 
 .courseDivider {
-	padding: 30px 0;
+	padding: 30px 40px;
 	p {
-		margin: 0 40px 0 40px;
 		padding-bottom: 5px;
 		border-bottom: 1px solid $Black;
 		text-transform: uppercase;
 		font-size: 30px;
 		color: $Greeting;
 	}
+	a {
+		text-decoration: none;
+		color: $Black;
+		float: right;
+		font-family: 'Domine', serif;
+		font-weight: 700;
+		font-size: 15px;
+		position: relative;
+		bottom: 0;
+		height: 66px;
+		line-height: 66px;
+		margin-top: -31px;
+		padding: 0 10px;
+		&:hover {
+			background-color: $White;
+			color: $ButtonRed;
+		}
+	}
 }
+
 
 .error {
 	width: 100%;
@@ -341,7 +359,78 @@ form {
   		height: 28px;
   	}
   }
+}
 
+.attendanceOverview {
+	text-align: center;
+  background-color: $White;
+  width: 100%;
+  max-width: 640px;
+  padding: 57px 0 66px 0;
+  margin: 15px auto;
+    button {
+  	margin-bottom: 5px;
+  }
+  p {
+  	margin: 5px 0 15px 0;
+  	font-family: 'Domine', serif;
+		font-size: 20px;
+		text-align: center;
+  }
+  .status-list {
+  	width: 100%;
+		max-width: 412px;
+		margin: 0 auto;
+  	.status-list-header,
+  	.status-list-item {
+  		overflow: hidden;
+  		div {
+  			width: 50%;
+  			float: left;
+  			text-align: center;
+  		}
+  		&:nth-child(even) {
+  			background-color: $BGGray;
+  		}
+  	}
+  .status-list-header {
+		border: 1px solid $Black;
+		padding: 15px;
+	}
+	.status-list-item {
+		padding: 5px 0;
+		a {
+			text-decoration: none;
+			color: $Black;
+		}
+	}
+  }
+  .status-list-body {
+  	font-family: 'Domine', serif;
+  	font-size: 15px;
+  	border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+  }
+}
+
+.datenav {
+	text-align: center;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 15px;
+	.arrow-left {
+		float: left;
+	}
+	.arrow-right {
+		float: right;
+	}
+	span {
+		font-size: 20px;
+		font-family: "Domine", serif;
+		line-height: 40px;
+	}
 }
 
 .gravatar {
@@ -356,6 +445,22 @@ form {
 	border-top: 20px solid $Black;
 	float: right;
 	margin-left: 20px;
+}
+.arrow-left {
+	width: 0; 
+	height: 0;
+	border-bottom: 20px solid transparent;
+	border-right: 20px solid $Black;
+	border-top: 20px solid transparent;
+	float: right;
+}
+.arrow-right {
+	width: 0; 
+	height: 0;
+	border-bottom: 20px solid transparent;
+	border-left: 20px solid $Black;
+	border-top: 20px solid transparent;
+	float: right;
 }
 
 footer {

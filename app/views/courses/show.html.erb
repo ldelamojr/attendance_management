@@ -1,49 +1,46 @@
-<h1></h1>
-
-<div class="subheader">
-  <h2><%= @course.name %></h2>
-  <a href="/courses/<%= @course.id %>/overview">OVERVIEW</a>
-  <button>BACK</button>
+<div class="courseDivider">
+  <a href="/courses/<%= @course.id %>/overview">Overview</a>
+  <a href="/courses/">Back</a>
+  <p> <%= @course.name %> </p>
 </div>
 
-<div class="datenav">
-  <form action="/courses/<%= @course.id %>">
-  <input type="hidden" name="date_offset" value="<%= @prevButtonVal %>">
-  <input type="submit" value="PREVIOUS">
-  </form>
-  <span class="date"><%= @date %></span>
-  <form action="/courses/<%= @course.id %>">
-  <input type="hidden" name="date_offset" value="<%= @nextButtonVal %>">
-  <input type="submit" value="NEXT">
+<div class="attendanceOverview">
+  <div class="datenav clearfix">
+    <a href="/courses/<%= @course.id %>/?date_offset=<%= @prevButtonVal %>" class="arrow-left"></a>
+    <span class="date"><%= @date %></span>
+    <a href="/courses/<%= @course.id %>/?date_offset=<%= @nextButtonVal %>" class="arrow-right"></a>
+  </div>
+
+
+  <form action="/attendances/edit"></form>
+    
+    <div class="status-list">
+
+      <div class="status-list-header">
+        <div>NAME</div>
+        <div>STATUS</div>
+      </div>
+
+      <div class="status-list-body">
+        <% @students.each do | student | %>
+         
+          <div class="status-list-item">
+            <div><a href="/students/<%= student.id%>" title=""><%= student.name %></a></div>
+            
+            <div>
+              <select name="status">
+                <!-- < % = if ( student.attendance.status == "present" ) then print("selected") end % >-->
+                <option value="present">PRESENT</option>
+                <option value="late">LATE</option>
+                <option value="excused">EXCUSED</option>
+                <option value="unexcused">UNEXCUSED</option>
+              </select>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <input class="push" type="submit" value="SUBMIT ATTENDANCE" >
   </form>
 </div>
-
-
-<form action="/attendances/edit"></form>
-  <table>
-    <thead>
-      <td>NAME</td>
-      <td>STATUS</td>
-    </thead>
-    <tbody>
-      <% @students.each do | student | %>
-        <tr>
-        <% # puts( student.attendance.status )%>
-          <td><a href="/students/<%= student.id%>" title=""><%= student.name %></a></td>
-          <td>
-            <select name="status">
-              <!-- < % = if ( student.attendance.status == "present" ) then print("selected") end % >-->
-              <option value="present">PRESENT</option>
-              <option value="late">LATE</option>
-              <option value="excused">EXCUSED</option>
-              <option value="unexcused">UNEXCUSED</option>
-            </select>
-
-          </td>
-        <tr>
-      <% end %>
-    </tbody>
-  </table>
-  <input type="submit" value="SUBMIT ATTENDANCE" >
-</form>
-

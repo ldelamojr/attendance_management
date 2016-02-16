@@ -8,7 +8,7 @@
 
 User.create([{id: 1, name: "Jason Booras", email: "jasonbooras@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 2, name: "Dana Gill", email: "d.gill.design@gmail.com", password: "123", phone: "2121234567", type: "Student"},
-             {id: 3, name: "Ismail Jaafari", email: "ismailj@gmail.com", password: "123", phone: "2121234567", type: "Student"},
+             {id: 3, name: "Ismail Jaafari", email: "ismailj@gmail.com", password: "123", phone: "2018981678", type: "Student"},
              {id: 4, name: "Sara Abbasi", email: "saraa@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 5, name: "Zachary Boyd", email: "zacharyb@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 6, name: "Jason Chan", email: "jasonc@gmail.com", password: "123", phone: "2121234567", type: "Student"},

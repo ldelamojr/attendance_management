@@ -1,18 +1,26 @@
-<%= @course.name %> OVERVIEW
+<div class="courseDivider">
+  <a href="/courses/<%= @course.id %>/">Back</a>
+  <p> <%= @course.name %> : OVERVIEW</p>
+</div>
 
-<table>
-	<thead>
-		<td>NAME</td>
-		<td>DATE</td>
-		<td>STATUS</td>
-	</thead>
-	<tbody>
-		<% @lateStudents.each do |lateStudent| %>
-			<tr>
-				<td><%= lateStudent.name %></td>
-				<td><%= lateStudent.date %></td>
-				<td><%= lateStudent.status %></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
+<div class="courseOverview">
+	
+	<div class="status-list">
+    
+    	<div class="status-list-header">
+			<div>NAME</div>
+			<div>DATE</div>
+			<div>STATUS</div>
+		</div>
+		
+   		<div class="status-list-body">
+			<% @lateStudents.each do |lateStudent| %>
+				<div class="status-list-item">
+					<div class="name"><%= lateStudent.name %></div>
+					<div class ="date"><%= lateStudent.date %></div>
+					<div class ="status"><%= lateStudent.status %></div>
+				</div>
+			<%end%>
+		</div>
+	</div>
+</div>

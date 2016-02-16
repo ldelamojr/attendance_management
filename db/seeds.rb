@@ -189,7 +189,7 @@ Attendance.create([{danger: true, status: "late", date: "01/04/2016", user_id: 1
                    {danger: false, status: "late", date: "01/06/2016", user_id: 2, course_id: 1},
                    {danger: false, status: "late", date: "01/14/2016", user_id: 2, course_id: 2},
                    {danger: false, status: "late", date: "02/15/2016", user_id: 10, course_id: 2},
-                   {danger: false,  status: "late", date: "02/14/2016", user_id: 12, course_id: 2}
+                   {danger: false,  status: "late", date: "02/14/2016", user_id: 12, course_id: 2},
                    {danger: false, status: "excused", date: "02/12/2016", user_id: 23, course_id: 2},
                    {danger: true, status: "unexcused", date: "02/10/2016", user_id: 27, course_id: 3},
                    {danger: false, status: "unexcused", date: "01/28/2016", user_id: 38, course_id: 3},

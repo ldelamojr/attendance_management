@@ -86,8 +86,26 @@ class CoursesController < ApplicationController
 
   def create
       @attendance = Attendance.new(attendance_params)
+
       if @attendance.save
+         # counts the combo of lateness and unexcused. 
+         @students = Student.where(:id => params["user_id"])
+
+         @students.each do |student|
+           @lateness_count = Attendance.where(user_id: student.id, status:[1]).count 
+           @unexcused_count = Attendance.where(user_id: student.id, status:[3]).count 
+           @danger_count = (@lateness_count *3) + @unexcused_count 
+
+          # if > 3, changes danger to true
+           if @danger_count > 3 
+              Attendance.where(user_id: params["user_id"]).update_all(danger: true)
+           else 
+              Attendance.where(user_id: params["user_id"]).update_all(danger: false)
+           end
+        end
+
         redirect_to "/courses/" + params[:course_id]
+
       else
         redirect_to "/courses/" + params[:course_id]
       end
@@ -95,7 +113,7 @@ class CoursesController < ApplicationController
 
   # # variable for create and delete form
   def attendance_params
-      params.permit(:status, :date, :user_id, :course_id)
+      params.permit(:status, :date, :user_id, :course_id, :danger)
   end
 
   # edits a cheese

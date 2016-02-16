@@ -44,7 +44,7 @@ class CoursesController < ApplicationController
       student = User.find_by(phone: from_number)
       date = Time.now.strftime('%Y-%m-%d')
       Attendance.create(message: message_body, user_id: student.id, date: date)
-      binding.pry
+      # binding.pry
 
       redirect_to :back
     end
@@ -236,7 +236,7 @@ class CoursesController < ApplicationController
     end
 
     @attendances_by_message_date = Attendance.where(date: @message_date)
-binding.pry
+# binding.pry
   end
 
 

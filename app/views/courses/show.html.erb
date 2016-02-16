@@ -31,8 +31,9 @@
                 <input type="hidden" name="user_id" value="<%= student.id %>">
                 <input type="hidden" name="course_id" value="<%= @course.id %>">
                 <input type="hidden" name="date" value="<%= @date %>">
+
                 <select name="status">
-                  <option value="present" >PRESENT</option>
+                  <option selected="selected" value="present" >PRESENT</option>
                   <option value="late" >LATE</option>
                   <option value="excused" >EXCUSED</option>
                   <option value="unexcused" >UNEXCUSED</option>

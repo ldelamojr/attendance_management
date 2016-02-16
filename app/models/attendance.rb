@@ -1,7 +1,7 @@
 class Attendance < ActiveRecord::Base
 	enum status: { "present"=>0, "late"=>1, "excused"=>2, "unexcused"=>3}
 	belongs_to :courses
-	belongs_to :users
+	belongs_to :user
 
 	# AH HA!!
 	# http://stackoverflow.com/questions/26002658/how-do-i-convert-a-date-before-saving-it-to-the-database-in-rails-4

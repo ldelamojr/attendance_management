@@ -96,7 +96,7 @@ class CoursesController < ApplicationController
            @unexcused_count = Attendance.where(user_id: student.id, status:[3]).count 
            @danger_count = (@lateness_count *3) + @unexcused_count 
 
-          # if > 3, changes danger to true
+          # if > 2, changes danger to true
            if @danger_count > 2 
               Attendance.where(user_id: params["user_id"]).update_all(danger: true)
            else 
@@ -252,6 +252,10 @@ class CoursesController < ApplicationController
     else
       # no late students so just get all the students in that course
       @students = Student.where(:id => course_user_ids )
+
+      # @students.each do |student|
+      # @attendance = Attendance.where(:user_id => student.id)
+      # end
 
     end
   end

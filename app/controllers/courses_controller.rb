@@ -190,7 +190,7 @@ class CoursesController < ApplicationController
       # so (today + 1) or ( today + -5 )
       # add the offset nomber of days to today
       date = Time.now + offset.day
-
+      status_date = (Time.now + offset.day).strftime('%Y-%m-%d')
       # set buttons values to the offset +/- 1
       @nextButtonVal = Integer(params['date_offset']) + 1
       @prevButtonVal = Integer(params['date_offset']) - 1
@@ -199,7 +199,7 @@ class CoursesController < ApplicationController
       # no date_offset param
       # just get todays date
       date = Time.now
-
+      status_date = Time.now.strftime('%Y-%m-%d')
       # buttons go back and forward 1 day
       @nextButtonVal = "1"
       @prevButtonVal = "-1"
@@ -246,6 +246,10 @@ class CoursesController < ApplicationController
       # end
 
     end
+    
+    
+    @attendance_by_date = Attendance.where(date: status_date)
+# binding.pry  
   end
 
 

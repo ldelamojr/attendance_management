@@ -2,6 +2,8 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   # validates :validate_date
 
+  DANGER_LIMIT = 3
+
   def receive_sms
     content_type 'text/xml'
 
@@ -83,32 +85,18 @@ class CoursesController < ApplicationController
   end
 
   # ///////////////////////////// copied from straight curd'n
-
+  # Technically this is an update
   def create
-      @attendance = Attendance.new(attendance_params)
+    attendance = Attendance.find_or_initialize_by(
+      user_id: attendance_params[:user_id],
+      date: attendance_params[:date],
+      course_id: attendance_params[:course_id]
+    )
 
-      if @attendance.save
-         # counts the combo of lateness and unexcused. 
-         @students = Student.where(:id => params["user_id"])
+    attendance.update(status: attendance_params[:status])
+    update_student_danger(params[:user_id])
 
-         @students.each do |student|
-           @lateness_count = Attendance.where(user_id: student.id, status:[1]).count 
-           @unexcused_count = Attendance.where(user_id: student.id, status:[3]).count 
-           @danger_count = (@lateness_count *3) + @unexcused_count 
-
-          # if > 2, changes danger to true
-           if @danger_count > 2 
-              Attendance.where(user_id: params["user_id"]).update_all(danger: true)
-           else 
-              Attendance.where(user_id: params["user_id"]).update_all(danger: false)
-           end
-        end
-
-        redirect_to "/courses/" + params[:course_id]
-
-      else
-        redirect_to "/courses/" + params[:course_id]
-      end
+    redirect_to "/courses/" + params[:course_id]
   end
 
   # # variable for create and delete form
@@ -251,7 +239,7 @@ class CoursesController < ApplicationController
 
     else
       # no late students so just get all the students in that course
-      @students = Student.where(:id => course_user_ids )
+      @students = Student.where(:id => course_user_ids)
 
       # @students.each do |student|
       # @attendance = Attendance.where(:user_id => student.id)
@@ -285,15 +273,32 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find_by(id: params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find_by(id: params[:id])
+  end
+
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:id, :name, :email, :password_digest, :image, :phone, :type)
+  end
+
+  def update_student_danger(id)
+    student = Student.find(id)     
+    attendance = Attendance.where(user: student) 
+
+    lateness_count = attendance.select { |a| a.status == "late" }.count
+    unexcused_count = attendance.select { |a| a.status == "unexcused" }.count
+    danger_count = (lateness_count / 3).floor + unexcused_count
+
+    if danger_count >= DANGER_LIMIT
+      attendance.update_all(danger: true)
+    else 
+      attendance.update_all(danger: false)
     end
+  end
 end
 
   

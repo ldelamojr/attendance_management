@@ -251,7 +251,7 @@ def contact
 
     client = Twilio::REST::Client.new ENV["CALL_ACCOUNT_SID"], ENV["CALL_AUTH_TOKEN"]
 
-    # from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
+    from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
 
     friends = {
     # "+12018981678" => "Ismail jaafar",  #12018981678

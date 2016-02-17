@@ -8,56 +8,41 @@
   <div class="datenav clearfix">
     <a href="/courses/<%= @course.id %>/?date_offset=<%= @prevButtonVal %>" class="arrow-left"></a>
     <span class="date"><%= @date %></span>
- 
-    <% if @showNextButton %>   
-      <a href="/courses/<%= @course.id %>/?date_offset=<%= @nextButtonVal %>" class="arrow-right"></a>
-    <%end%>
-
+    <a href="/courses/<%= @course.id %>/?date_offset=<%= @nextButtonVal %>" class="arrow-right"></a>
   </div>
 
   <!-- added method and changed to courses route -->
-    
-  <div class="status-list">
 
-    <div class="status-list-header">
-      <div>NAME</div>
-      <div>STATUS</div>
-    </div>
+    <div class="status-list">
 
-    <div class="status-list-body">
-      <% @students.each_with_index do | student, index | %>
-       <div class="status-list-item">
-        <form action="/courses" method="POST">
+      <div class="status-list-header">
+        <div>NAME</div>
+        <div>STATUS</div>
+      </div>
 
-         <div class="name"><a href="/students/<%= student.id%>" title=""><%= student.name %></a></div>
-         
-         <div class="statusSubmit">
-           <input type="hidden" name="user_id" value="<%= student.id %>">
-           <input type="hidden" name="course_id" value="<%= @course.id %>">
-           <input type="hidden" name="date" value="<%= @date %>">
+      <div class="status-list-body">
+        <% @students.each_with_index do | student, index | %>
+          <div class="status-list-item">
+            <form action="/courses" method="POST">
 
-           <select name="status">
-           <%if @attendance_by_date.length == 0%>
-            <option selected="selected" value="present" >PRESENT</option>
-            <option value="late" >LATE</option>
-            <option value="excused" >EXCUSED</option>
-            <option value="unexcused" >UNEXCUSED</option>
-           <%else%>
-            <% @attendance_by_date.each do |attendance| %>
-              <%#if attendance.user_id == student.id%>
-               <option <% if attendance[:status] == 0 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="present" >PRESENT</option>
-               <option <% if attendance[:status] == 1 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="late" >LATE</option>
-               <option <% if attendance[:status] == 2 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="excused" >EXCUSED</option>
-               <option <% if attendance[:status] == 3 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="unexcused" >UNEXCUSED</option>
-              <%#end%>
-             <%end%>
-            <%end%>
-           </select>
-           <input class="push" type="submit" value="SUBMIT" >
-         </div>
-        </form>
-       </div>
-      <% end %>
-    </div>
+              <div class="name"><a href="/students/<%= student.id%>" title=""><%= student.name %></a></div>
+
+              <div class="statusSubmit">
+                <input type="hidden" name="user_id" value="<%= student.id %>">
+                <input type="hidden" name="course_id" value="<%= @course.id %>">
+                <input type="hidden" name="date" value="<%= @date %>">
+
+                <select name="status">
+                  <option selected="selected" value="present" >PRESENT</option>
+                  <option value="late" >LATE</option>
+                  <option value="excused" >EXCUSED</option>
+                  <option value="unexcused" >UNEXCUSED</option>
+                </select>
+                <input class="push" type="submit" value="SUBMIT" >
+              </div>
+            </form>
+          </div>
+        <% end %>
+      </div>
     </div>
 </div>

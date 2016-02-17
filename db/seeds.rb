@@ -6,15 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create([{id: 1, name: "Jason Booras", email: "jasonbooras@gmail.com", password: "123", phone: "2121234567", type: "Student"},
-             {id: 2, name: "Dana Gill", email: "d.gill.design@gmail.com", password: "123", phone: "2121234567", type: "Student"},
-             {id: 3, name: "Ismail Jaafari", email: "ismailj@gmail.com", password: "123", phone: "2121234567", type: "Student"},
+User.create([{id: 1, name: "Jason Booras", email: "jasonbooras@gmail.com", password: "123", phone: "+15083977300", type: "Student"},
+             {id: 2, name: "Dana Gill", email: "d.gill.design@gmail.com", password: "123", phone: "+12013628147", type: "Student"},
+             {id: 3, name: "Ismail Jaafari", email: "ismailj@gmail.com", password: "123", phone: "+12018981678", type: "Student"},
              {id: 4, name: "Sara Abbasi", email: "saraa@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 5, name: "Zachary Boyd", email: "zacharyb@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 6, name: "Jason Chan", email: "jasonc@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 7, name: "Peter Cirincione", email: "peterc@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 8, name: "Fatima Faloye", email: "fatimaf@gmail.com", password: "123", phone: "2121234567", type: "Student"},
-             {id: 9, name: "Leonel Delamo Jr.", email: "leoneld@gmail.com", password: "123", phone: "2121234567", type: "Student"},
+             {id: 9, name: "Leonel Delamo Jr.", email: "leoneld@gmail.com", password: "123", phone: "+17868599939", type: "Student"},
              {id: 10, name: "Diana Frank", email: "dianaf@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 11, name: "Ruth Acosta", email: "rutha@gmail.com", password: "123", phone: "2121234567", type: "Student"},
              {id: 12, name: "Eric Boateng", email: "ericb@gmail.com", password: "123", phone: "2121234567", type: "Student"},

@@ -171,7 +171,7 @@ class CoursesController < ApplicationController
       offset = Integer(params['date_offset'])
       # todays date plus the offset (which can be negative)
       # so (today + 1) or ( today + -5 )
-      # add the offset number of days to today
+      # add the offset nomber of days to today
       date = Time.now + offset.day
       status_date = (Time.now + offset.day).strftime('%Y-%m-%d')
 
@@ -203,15 +203,13 @@ class CoursesController < ApplicationController
 
     #  get a list of all the users in this course
     course_user_ids = CourseUser.select('user_id').where( course_id: params['id'] )
-    #  get just an array of the ids - used for plain sql query
-    course_user_ids_array = CourseUser.select('user_id').where( course_id: params['id'] ).pluck(:user_id)
-
 
     # get all the late/excused/unexcused/present students in the course using the id list
-    
+
     # /////////////////
-    @dbDate = date.strftime("%Y-%m-%d")
-    lateStudents = ActiveRecord::Base.connection.execute("SELECT * FROM users JOIN attendances ON users.id = attendances.user_id WHERE users.type = 'Student' AND attendances.date = '#{@dbDate}' AND user_id in ( #{course_user_ids_array.join(",")} )").to_a
+    # not getting STATUS or any results here :( )
+    lateStudents = Student.joins(:attendance).select('users.*, attendances.*').where( users:{ :id => course_user_ids }, attendances: { date: date, user_id: 'users.id' } )
+    # ////////////////
 
     # if there are any students in the attendance table for this day make a list of just their ids
     if lateStudents.length > 0
@@ -221,11 +219,12 @@ class CoursesController < ApplicationController
 
       # add the ids one at a time to the array
       lateStudents.each do | lateStudent |
-        lateStudentIds.push(lateStudent['user_id'])
+        lateStudentIds.push(lateStudent.id)
       end
 
       # get all of the other students NOT in the lateStudentIds array
-      otherStudents = Student.where(:id => course_user_ids).where.not(:id => lateStudentIds)
+      otherStudents = Student.where(:id => course_user_ids).where("id NOT IN (?)", lateStudentIds)
+
       # combine the 2 lists, late students at the top
       @students = lateStudents.push(*otherStudents)
 
@@ -248,7 +247,7 @@ class CoursesController < ApplicationController
 
 
   def contact
-   
+    binding.pry
     account_sid = ""
     auth_token = ""
     client = Twilio::REST::Client.new account_sid, auth_token
@@ -298,5 +297,3 @@ class CoursesController < ApplicationController
     end
   end
 end
-
-  

@@ -1,11 +1,14 @@
 <div class="courseDivider"><p>CURRENT WDI COURSES</p></div>
-  
+
 <div class="producerOverview">
-  
+
   <%= image_tag(avatar_url(@current_user), size: "78", class:"gravatar") %>  <!-- gravatar -->
   <p><%= @current_user.name %></p>
 
   <ul>
+    <% if flash[:notice] %>
+         <div class="notice" style="margin-left: 600px"><%= flash[:notice] %></div>
+     <% end %>
     <!--  loop through all the users courses -->
     <!-- we use each_with_index so we can reference the arrays of values correctly -->
     <% @courses.each_with_index do | course, index | %>
@@ -20,9 +23,9 @@
             <% end %>
           </div>
         </div>
-        
+
         <% if @current_user['type'] == 'Producer' && @danger_student_lists[index].length > 0 %>
-        
+
           <div class="danger-students">
 
             <% @danger_student_lists[ index ].each do | dangerStudent | %>
@@ -31,9 +34,9 @@
                 <%= image_tag(avatar_url(dangerStudent), size: "48", class:"gravatar") %> <!-- Gravatar -->
 
                 <a href="/students/<%= dangerStudent.id %>"><%= dangerStudent.name %></a>
-                <%= button_to 'Contact', {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post, :class=>"push"  %>
+                <%= button_to 'Contact ' + dangerStudent.name, {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post, :class=>"push"  %>
               </div>
-            
+
             <% end %>
           </div>
         <% end %>

@@ -25,25 +25,24 @@
     </div>
 
     <div class="status-list-body">
+
       <% @students.each_with_index do | student, index | %>
        <div class="status-list-item">
         <form action="/courses" method="POST">
 
-         <div class="name"><a href="/students/<%= student.id%>" title=""><%= student.name %></a></div>
+         <div class="name"><a href="/students/<%= student['id']%>" title=""><%= student['name'] %></a></div>
          
          <div class="statusSubmit">
-           <input type="hidden" name="user_id" value="<%= student.id %>">
-           <input type="hidden" name="course_id" value="<%= @course.id %>">
+           <input type="hidden" name="user_id" value="<%= student['user_id'] %>">
+           <input type="hidden" name="course_id" value="<%= @course['id'] %>">
            <input type="hidden" name="date" value="<%= @date %>">
 
-           <select name="status" id "status_selector">
-            <% @attendance_by_date.each do |attendance| %>
-               <option <% if attendance[:status] == 0 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="present" >PRESENT</option>
-               <option <% if attendance[:status] == 1 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="late" >LATE</option>
-               <option <% if attendance[:status] == 2 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="excused" >EXCUSED</option>
-               <option <% if attendance[:status] == 3 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="unexcused" >UNEXCUSED</option>
-              <%#end%>
-            <%end%>
+           <select name="status">
+             <option <% if student['status'] == "0" %> <%= selected="selected" %> <%end%>value="present" >PRESENT</option>
+             <option <% if student['status'] == "1" %> <%= selected="selected" %> <%end%>value="late" >LATE</option>
+             <option <% if student['status'] == "2" %> <%= selected="selected" %> <%end%>value="excused" >EXCUSED</option>
+             <option <% if student['status'] == "3" %> <%= selected="selected" %> <%end%>value="unexcused" >UNEXCUSED</option>
+
            </select>
            <input class="push" type="submit" value="SUBMIT" >
          </div>

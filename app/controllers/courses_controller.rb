@@ -263,7 +263,7 @@ def contact
       client.account.messages.create("
         :from => ENV["TWILLIO_VERIFIED_PHONE"],
         :to => key,
-        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
+        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?
       )
     end
     redirect_to courses_path, notice: "Your SMS has been sent to #{params["name"]}"

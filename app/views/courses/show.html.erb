@@ -36,21 +36,13 @@
            <input type="hidden" name="course_id" value="<%= @course.id %>">
            <input type="hidden" name="date" value="<%= @date %>">
 
-           <select name="status">
-           <%if @attendance_by_date.length == 0%>
-            <option selected="selected" value="present" >PRESENT</option>
-            <option value="late" >LATE</option>
-            <option value="excused" >EXCUSED</option>
-            <option value="unexcused" >UNEXCUSED</option>
-           <%else%>
+           <select name="status" id "status_selector">
             <% @attendance_by_date.each do |attendance| %>
-              <%#if attendance.user_id == student.id%>
                <option <% if attendance[:status] == 0 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="present" >PRESENT</option>
                <option <% if attendance[:status] == 1 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="late" >LATE</option>
                <option <% if attendance[:status] == 2 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="excused" >EXCUSED</option>
                <option <% if attendance[:status] == 3 && attendance.user_id == student.id %> <%= selected="selected" %> <%end%>value="unexcused" >UNEXCUSED</option>
               <%#end%>
-             <%end%>
             <%end%>
            </select>
            <input class="push" type="submit" value="SUBMIT" >
@@ -61,6 +53,5 @@
     </div>
     </div>
 </div>
-
 
 

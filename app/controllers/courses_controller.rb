@@ -13,7 +13,7 @@ class CoursesController < ApplicationController
 
     response.to_xml
   end
-  
+
   # GET /courses
   # GET /courses.json
   def index
@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
       @courses = Course.all
     else
       puts("its an instructor")
-      # if its an instructor 
+      # if its an instructor
       # only get the courses they are associated with
       # use the course user table to get a list of id's of the courses that belong to the logged in instructor
       course_ids = CourseUser.select('course_id').where( user_id: @current_user.id )
@@ -137,11 +137,11 @@ class CoursesController < ApplicationController
     # we select everything from both so we have .name and .status etc
     @lateStudents = Student.joins(:attendance).select('users.*, attendances.*').where( :id => course_user_ids )
   end
-  
+
   # GET /courses/1
   # GET /courses/1.json
   def show
-    
+
     # dont let students view this
     # get the user object of the current logged in user using the session id
     @current_user = User.find( session['current_user']['id'] )
@@ -165,8 +165,8 @@ class CoursesController < ApplicationController
     end
 
     # see if there is a date offset like: "?date_offset=5"
-    if ( params['date_offset'] ) 
-      
+    if ( params['date_offset'] )
+
       # this is the value in the url like ?date_offset=1
       offset = Integer(params['date_offset'])
       # todays date plus the offset (which can be negative)
@@ -231,7 +231,7 @@ class CoursesController < ApplicationController
     else
       # no late students so just get all the students in that course
       @students = Student.where(:id => course_user_ids)
-      
+
 
 
       # @students.each do |student|
@@ -239,34 +239,34 @@ class CoursesController < ApplicationController
       # end
 
     end
-    
-    
+
+
     @attendance_by_date = Attendance.where(date: status_date)
-# binding.pry  
+# binding.pry
   end
 
 
-  def contact
-    binding.pry
-    account_sid = ""
-    auth_token = ""
-    client = Twilio::REST::Client.new account_sid, auth_token
-     
-    from = "+14155992671"  # "+17868027784"   #  # Your Twilio number +13473531559
-     
+def contact
+
+
+    client = Twilio::REST::Client.new ENV["CALL_ACCOUNT_SID"], ENV["CALL_AUTH_TOKEN"]
+
+    # from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
+
     friends = {
     # "+12018981678" => "Ismail jaafar",  #12018981678
-    "+17868599939" => params["name"]
-    # "+1"+params["phone"].gsub("-","") => params["name"]
-    
+    # "+17868599939" => params["name"]
+    params["phone"] => params["name"]
+
     }
     friends.each do |key, value|
-      client.account.messages.create(
-        :from => from,
+      client.account.messages.create("
+        :from => ENV["TWILLIO_VERIFIED_PHONE"],
         :to => key,
-        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Can you please email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
+        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
       )
     end
+    redirect_to courses_path, notice: "Your SMS has been sent to #{params["name"]}"
   end
 
   private
@@ -283,8 +283,8 @@ class CoursesController < ApplicationController
   end
 
   def update_student_danger(id)
-    student = Student.find(id)     
-    attendance = Attendance.where(user: student) 
+    student = Student.find(id)
+    attendance = Attendance.where(user: student)
 
     lateness_count = attendance.select { |a| a.status == "late" }.count
     unexcused_count = attendance.select { |a| a.status == "unexcused" }.count
@@ -292,7 +292,7 @@ class CoursesController < ApplicationController
 
     if danger_count >= DANGER_LIMIT
       attendance.update_all(danger: true)
-    else 
+    else
       attendance.update_all(danger: false)
     end
   end

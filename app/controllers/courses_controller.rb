@@ -247,26 +247,25 @@ class CoursesController < ApplicationController
 
 
   def contact
-    binding.pry
-    account_sid = ""
-    auth_token = ""
-    client = Twilio::REST::Client.new account_sid, auth_token
+    client = Twilio::REST::Client.new ENV["CALL_ACCOUNT_SID"], ENV["CALL_AUTH_TOKEN"]
      
-    from = "+14155992671"  # "+17868027784"   #  # Your Twilio number +13473531559
+    from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
      
     friends = {
     # "+12018981678" => "Ismail jaafar",  #12018981678
-    "+17868599939" => params["name"]
+    # "+17868599939" => params["name"]
+    params["phone"] => params["name"]
     # "+1"+params["phone"].gsub("-","") => params["name"]
     
     }
     friends.each do |key, value|
       client.account.messages.create(
-        :from => from,
+        :from => ENV["TWILLIO_VERIFIED_PHONE"],
         :to => key,
-        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Can you please email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
+        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
       )
     end
+    redirect_to courses_path, notice: "Your SMS has been sent to #{params["name"]}"
   end
 
   private

@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'pry'
 # require 'sinatra'
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
@@ -26,17 +27,17 @@ class CoursesController < ApplicationController
     # end
 
     def sms 
-
+# binding.pry
       message_body = params["Body"]
       from_number = params["From"]
-      from_number[0] = ''
-      from_number[0] = ''
+      # from_number[0] = ''
+      # from_number[0] = ''
       ############################################
-      from_number.insert(6,'-')
+      #from_number.insert(6,'-')
                                 #This block of code is in case the db has dashes
-      from_number.insert(3,'-')  
+      #from_number.insert(3,'-')  
       ############################################
-
+# binding.pry
 
       ############################################
       #from_number = "212-123-4567"
@@ -45,8 +46,8 @@ class CoursesController < ApplicationController
       date = Time.now.strftime('%Y-%m-%d')
       Attendance.create(message: message_body, user_id: student.id, date: date)
       # binding.pry
-
-      redirect_to :back
+# binding.pry
+      redirect_to courses_path
     end
   
   # GET /courses

@@ -264,10 +264,10 @@ class CoursesController < ApplicationController
       client.account.messages.create(
         :from => from,
         :to => key,
-        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Can you please email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
+        :body => "Hey #{value}, it's #{session[:current_user]['name']}! Email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?"
       )
     end
-    redirect_to "/courses"
+    redirect_to courses_path, notice: "Your SMS has been sent to #{params["name"]}"
   end
 
   private

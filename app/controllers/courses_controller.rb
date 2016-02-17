@@ -251,7 +251,7 @@ def contact
 
     client = Twilio::REST::Client.new ENV["CALL_ACCOUNT_SID"], ENV["CALL_AUTH_TOKEN"]
 
-    # from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
+    from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
 
     friends = {
     # "+12018981678" => "Ismail jaafar",  #12018981678
@@ -260,7 +260,7 @@ def contact
 
     }
     friends.each do |key, value|
-      client.account.messages.create("
+      client.account.messages.create(
         :from => ENV["TWILLIO_VERIFIED_PHONE"],
         :to => key,
         :body => "Hey #{value}, it's #{session[:current_user]['name']}! Email me at #{session[:current_user]['email']} to discuss your attendance, dun dun duuuunnnnn?

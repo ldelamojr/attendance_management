@@ -520,6 +520,15 @@ form {
 	border-radius: 50%;
 }
 
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid $Black;
+  float: right;
+  margin-left: 20px;
+}
 .arrow-down {
 	width: 0; 
 	height: 0; 

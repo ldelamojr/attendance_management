@@ -34,7 +34,7 @@
                 <%= image_tag(avatar_url(dangerStudent), size: "48", class:"gravatar") %> <!-- Gravatar -->
 
                 <a href="/students/<%= dangerStudent.id %>"><%= dangerStudent.name %></a>
-                <%= button_to 'Contact' + dangerStudent.name, {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post, :class=>"push"  %>
+                <%= button_to 'Contact ' + dangerStudent.name, {:controller => "courses", :action => "contact"}, params: { id: dangerStudent.id , phone: dangerStudent.phone , name: dangerStudent.name  }, :method=>:post, :class=>"push"  %>
               </div>
 
             <% end %>

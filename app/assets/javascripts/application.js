@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+$(document).on("ready", function() {
+  $('.course-name').on('click', function(){
+    $(this).parent(".course-wrapper").find('.danger-students').slideToggle();
+    $(this).parent('.course-wrapper').find('.arrow-down, .arrow-up').toggleClass('arrow-down arrow-up')
+  });
+});

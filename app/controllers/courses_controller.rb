@@ -248,9 +248,8 @@ class CoursesController < ApplicationController
 
   def contact
 
-    account_sid = CALL_ACCOUNT_SID
-    auth_token = CALL_AUTH_TOKEN
-    client = Twilio::REST::Client.new account_sid, auth_token
+
+    client = Twilio::REST::Client.new TWILIO_SID, TWILIO_AUTH
 
     from = "+17862358340"  # "+17868027784"   #  # Your Twilio number +13473531559
 

@@ -22,3 +22,4 @@ $(document).on("ready", function() {
     $(this).parent('.course-wrapper').find('.arrow-down, .arrow-up').toggleClass('arrow-down arrow-up')
   });
 });
+

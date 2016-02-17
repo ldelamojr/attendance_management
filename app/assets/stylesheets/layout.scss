@@ -1,3 +1,4 @@
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -7,8 +8,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
@@ -179,7 +180,7 @@ body {
       font-size: 24px;
       line-height: 65px;
     }
-  }
+  } 
 }
 
 form {
@@ -210,14 +211,14 @@ form {
       width: auto;
       &:hover {
         background-color: $White;
-        color: $ButtonRed;
+        color: $ButtonRed;      
       }
     }
   }
 }
 
 .push {
-  font-family:'Fjalla One', sans-serif;
+  font-family:'Fjalla One', sans-serif; 
   font-size: 20px;
   line-height: 20px;
   text-transform: capitalize;
@@ -322,7 +323,7 @@ form {
       text-align: right;
       margin-top: 5px;
     }
-  
+  }
   .danger-students {
     display: none;
     font-family: 'Domine', serif;
@@ -359,7 +360,8 @@ form {
       line-height: 12px;
       height: 28px;
     }
-
+  }
+}
 
 .attendanceOverview {
   text-align: center;
@@ -425,6 +427,8 @@ form {
       line-height: 12px;
       height: 28px;
     }
+  }
+  }
   .status-list-body {
     font-family: 'Domine', serif;
     font-size: 15px;
@@ -433,6 +437,7 @@ form {
     border-right: 1px solid black;
     padding: 15px;
   }
+}
 
 .courseOverview {
   text-align: center;
@@ -518,13 +523,8 @@ form {
 }
 
 .arrow-up {
-<<<<<<< HEAD
   width: 0; 
   height: 0; 
-=======
-  width: 0;
-  height: 0;
->>>>>>> master
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid $Black;
@@ -532,8 +532,8 @@ form {
   margin-left: 20px;
 }
 .arrow-down {
-  width: 0;
-  height: 0;
+  width: 0; 
+  height: 0; 
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-top: 20px solid $Black;
@@ -541,7 +541,7 @@ form {
   margin-left: 20px;
 }
 .arrow-left {
-  width: 0;
+  width: 0; 
   height: 0;
   border-bottom: 20px solid transparent;
   border-right: 20px solid $Black;
@@ -549,7 +549,7 @@ form {
   float: right;
 }
 .arrow-right {
-  width: 0;
+  width: 0; 
   height: 0;
   border-bottom: 20px solid transparent;
   border-left: 20px solid $Black;
@@ -570,5 +570,5 @@ footer {
       font-family: 'Domine', serif;
       font-size: 13px;
       text-align: center;
-    }
+    } 
 }

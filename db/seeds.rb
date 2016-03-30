@@ -86,7 +86,8 @@ User.create([{id: 1, name: "Jason Booras", email: "jason@gmail.com", password: "
              {id: 78, name: "Dennis Liaw", email: "dennisl@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
              {id: 79, name: "Bryan Mytko", email: "bryanm@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
              {id: 80, name: "Bobby King", email: "bobbyk@gmail.com", password: "123", phone: "2121234567", type: "Instructor"},
-             {id: 81, name: "Ethan Barhydt", email: "ethanb@gmail.com", password: "123", phone: "2121234567", type: "Producer"}
+             {id: 81, name: "Ethan Barhydt", email: "ethanb@gmail.com", password: "123", phone: "2121234567", type: "Producer"},
+             {id: 82, name: "Testing User ", email: "test@email.com", password: "test", phone: "2121234567", type: "Producer"}
              ])
 
 

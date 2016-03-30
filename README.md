@@ -1,10 +1,14 @@
 # Attendance Tracker
 
 Track students' attendance through their course.
+
 [Live site](https://murmuring-fortress-68555.herokuapp.com/) 
+
 Login Info to access site:
-email: test@email.com
-password: test
+
+**email:** test@email.com
+
+**password:** test
 
 ##Instructor Portal
 
